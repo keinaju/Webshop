@@ -1,0 +1,30 @@
+* {
+    font-family: sans-serif;
+}
+
+.top-section {
+    display: grid;
+    grid-template-columns: 600px 600px;
+    grid-template-rows: 80px;
+    justify-content: center;
+    background-color: #A2C3AF;
+}
+
+.product-section {
+    display: grid;
+    grid-template-columns: 200px 1000px;
+    justify-content: center;
+}
+
+.sidebar {
+    background-color: #f9f9f9;
+}
+
+.product-list {
+    background-color: #f9f9f9;
+}
+
+table, tr {
+    border: 1px solid black;
+    border-collapse: collapse;
+}

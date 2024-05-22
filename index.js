@@ -4,13 +4,14 @@ const port = 3000;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
-app.get('/', (req, res) => {
-    res.json( { message: 'ok' } );
-});
+app.set('views', './views');
+app.set('view engine', 'pug');
 
 const productsRouter = require('./routes/products');
 app.use('/products', productsRouter);
+
+const imagesRouter = require('./routes/images');
+app.use('/images', imagesRouter);
 
 app.use((err, req, res, next) => {
     const statusCode = err.statusCode || 500;
