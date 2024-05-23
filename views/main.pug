@@ -1,15 +1,17 @@
 doctype html
 html
   head
+    include font_import.pug
     style
       include styles.css
   body
 
     div.top-section
       div.logo
-      div.user-info
+      div.user-info.align-right
         |Username:
         input
+        br
         |Password:
         input
         br

@@ -1,0 +1,50 @@
+extends main.pug
+
+block child
+    div.product-section
+        div.sidebar
+            |Search:
+            br
+            input(type='search')
+            br
+            |Categories:
+            br
+            |Order by (name, price, year, etc.):
+        div.product-list
+            if(product_list)
+                table
+                    tr
+                        th(style='width:10%')
+                        th(style='width:60%') Product
+                        th(style='width:15%') Category
+                        th(style='width:15%') Price                      
+                    each item in product_list
+                        tr
+                            td
+                                if item.image_file
+                                    img(src='http://localhost:3000/images/' + item.image_file width='100%')
+                            td
+                                b #{item.name}
+                                br
+                                i #{item.description}
+                                br
+                                br
+                            td
+                                |List, of, categories, ...
+                            td
+                                | #{item.price} € / pc.
+                                br
+                                a(href='http://localhost:3000/products/') (add to cart)
+            else
+                |No results.
+            
+            div.page-selector
+                div
+                    a(href='http://localhost:3000/products/') ← Previous page (1)
+                    br
+                    a(href='http://localhost:3000/products/') Go to the first page
+                div.align-center Current page is 2 of 582. Showing products 21-40 of 50,355.
+                div.align-right
+                    a(href='http://localhost:3000/products/') Next page (3) →
+                    br
+                    a(href='http://localhost:3000/products/') Go to the last page

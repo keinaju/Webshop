@@ -1,18 +1,19 @@
 const express = require('express');
 const app = express();
 const port = 3000;
+const path = require('path');
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+//View engine settings
 app.set('views', './views');
 app.set('view engine', 'pug');
 
-const productsRouter = require('./routes/products');
-app.use('/products', productsRouter);
+//Middlewares
+app.use(
+    require('./routers/products'),
+    express.static(path.join(__dirname, 'public')) //Serve static files from public folder
+);
 
-const imagesRouter = require('./routes/images');
-app.use('/images', imagesRouter);
-
+//Error handler
 app.use((err, req, res, next) => {
     const statusCode = err.statusCode || 500;
     console.error(err.message, err.stack);
