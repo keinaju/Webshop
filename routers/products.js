@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const products_query = require('../services/products_query');
+const get_products = require('../services/get_products');
 const add_product = require('../services/add_product');
 const path = require('path');
 
@@ -48,7 +48,7 @@ router.post('/products/add', upload.single('image'), async function (req, res, n
 
 router.get('/products', async function (req, res, next) {
     try {
-        res.render('products_page', { "product_list": await products_query.getProducts() } );
+        res.render('products_page', { "product_list": await get_products() } );
     }
     catch (error) {
         console.error('Error in product query.', error.message);

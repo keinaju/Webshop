@@ -1,7 +1,5 @@
 const db = require('./db');
 
-async function getProducts() {
+module.exports = async function get_products() {
     return await db.query('SELECT * FROM products;');
 }
-
-module.exports = { getProducts };
