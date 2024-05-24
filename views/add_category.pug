@@ -1,0 +1,21 @@
+extends main.pug
+
+block child
+    form(action='http://localhost:3000/categories/add' method='post' enctype='multipart/form-data')
+
+        div
+            b Fill form to add new category to database:
+
+        div
+            label(for='category_name') Category name:
+            br
+            input(id='category_name' name='category_name' type='text' size='60' minlength='1' maxlength='100')
+
+        div
+            label(for='image') Image:
+            br
+            input(type='file' accept='image/*' id='image' name='image')
+
+        div
+            br
+            button(type='submit') Upload to database

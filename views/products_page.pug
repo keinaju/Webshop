@@ -11,7 +11,7 @@ block child
             br
             |Order by (name, price, year, etc.):
         div.product-list
-            if(product_list)
+            if(Object.keys(product_list).length)
                 table
                     tr
                         th(style='width:15%')
@@ -36,15 +36,18 @@ block child
                                 br
                                 a(href='http://localhost:3000/products/') (add to cart)
             else
-                |No results.
+                div.align-center 
+                    |No results.
+                    br
+                    br
             
             div.page-selector
                 div
-                    a(href='http://localhost:3000/products/') ← Previous page (1)
+                    a(href=`http://localhost:3000/products/list/${Number(page_number) - 1}`) ← Previous page (1)
                     br
-                    a(href='http://localhost:3000/products/') Go to the first page
-                div.align-center Current page is 2 of 582. Showing products 21-40 of 50,355.
+                    a(href='http://localhost:3000/products/list/0') Go to the first page
+                div.align-center Current page is #{page_number} of X. Showing products x-x of x.
                 div.align-right
-                    a(href='http://localhost:3000/products/') Next page (3) →
+                    a(href=`http://localhost:3000/products/list/${Number(page_number) + 1}`) Next page (3) →
                     br
                     a(href='http://localhost:3000/products/') Go to the last page

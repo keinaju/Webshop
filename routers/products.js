@@ -46,9 +46,13 @@ router.post('/products/add', upload.single('image'), async function (req, res, n
     }
 });
 
-router.get('/products', async function (req, res, next) {
+router.get('/products/list/:page(\\d+)', async function (req, res, next) {
+    const page = req.params.page;
     try {
-        res.render('products_page', { "product_list": await get_products() } );
+        res.render('products_page', {
+            'product_list': await get_products(20, 20 * page),
+            'page_number': page,
+        });
     }
     catch (error) {
         console.error('Error in product query.', error.message);
