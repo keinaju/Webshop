@@ -14,15 +14,15 @@ block child
             if(product_list)
                 table
                     tr
-                        th(style='width:10%')
-                        th(style='width:60%') Product
-                        th(style='width:15%') Category
+                        th(style='width:15%')
+                        th(style='width:55%') Product
+                        th(style='width:15%') Categories
                         th(style='width:15%') Price                      
                     each item in product_list
                         tr
                             td
                                 if item.image_file
-                                    img(src='http://localhost:3000/images/' + item.image_file width='100%')
+                                    img(src='http://localhost:3000/images/' + item.image_file width='100%' style='border-radius: 5%;')
                             td
                                 b #{item.name}
                                 br

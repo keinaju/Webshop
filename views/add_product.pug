@@ -1,25 +1,33 @@
 extends main.pug
 
 block child
-    form(action='http://localhost:3000/products/add' method='post' enctype='multipart/form-data'): div.post-page
+    form(action='http://localhost:3000/products/add' method='post' enctype='multipart/form-data')
 
-        div.align-right
-            b Fill form to add new product to database:
         div
+            b Fill form to add new product to database:
 
-        div.align-right: label(for='product_code') Product code:
-        div: input(id='product_code' name='product_code' type='text' size='60' minlength='1' maxlength='100')
+        div
+            label(for='product_code') Product code:
+            br
+            input(id='product_code' name='product_code' type='text' size='60' minlength='1' maxlength='100')
 
-        div.align-right: label(for='product_name') Name:
-        div: input(id='product_name' name='product_name' type='text' size='60' minlength='1' maxlength='100' required)
+        div
+            label(for='product_name') Name:
+            br
+            input(id='product_name' name='product_name' type='text' size='60' minlength='1' maxlength='100' required)
 
-        div.align-right: label(for='description') Description:
-        div: textarea(id='description' name='description' rows='10' cols='60')
+        div
+            label(for='description') Description:
+            br
+            textarea(id='description' name='description' rows='10' cols='60')
 
-        div.align-right: label(for='price') Price [€]:
-        div: input(id='price' name='price' type='number' min='0.01' max='99999.99' step="0.01" required)
+        div
+            label(for='price') Price [€]:
+            br
+            input(id='price' name='price' type='number' min='0.01' max='99999.99' step="0.01" required)
 
-        div.align-right: |Categories:
+        div
+            |Categories:
         div
             input(id='CD' type='checkbox' name='category' value='CD')
             label(for='CD') CD, 
@@ -30,11 +38,12 @@ block child
             input(id='Vinyl' type='checkbox' name='category' value='Vinyl')
             label(for='Vinyl') Vinyl
 
-        div.align-right: label(for='image') Image:
         div
+            label(for='image') Image:
+            br
             input(type='file' accept='image/*' id='image' name='image')
 
-        div.align-center(style='grid-column: 1 / span 2;')
+        div(style='grid-column: 1 / span 2;')
             br
             button(type='submit') Upload to database
             br
