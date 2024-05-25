@@ -9,12 +9,11 @@ router.get('/products/add', (req, res) => {
 });
 
 router.post('/products/add', upload_file.single('image'), async function (req, res, next) {
-    let { product_code, product_name, description, price, category } = req.body;
+    let { product_code, product_name, description, price, categories } = req.body;
     if (product_code == '') product_code = Date.now();
 
-    let filename;
+    let filename = null;
     if (req.file) filename = req.file.filename;
-    else filename = null;
 
     try {
         await add_product(product_code, price, product_name, description, filename);
