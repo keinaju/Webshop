@@ -28,7 +28,7 @@ router.post('/products/add', upload_file.single('image'), async function (req, r
 router.get('/products/list/:page(\\d+)', async function (req, res, next) {
     const page = req.params.page;
     try {
-        res.render('products_page', {
+        res.render('products_list', {
             'product_list': await get_products(20, 20 * page),
             'page_number': page,
         });
