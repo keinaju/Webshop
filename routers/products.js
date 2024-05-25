@@ -11,7 +11,7 @@ router.get('/products/add', async (req, res) => {
 });
 
 router.post('/products/add', upload_file.single('image'), async function (req, res, next) {
-    let { product_code, product_name, description, price, categories } = req.body;
+    let { product_code, product_name, description, price } = req.body;
     if (product_code == '') product_code = Date.now();
 
     let filename = null;
@@ -19,7 +19,16 @@ router.post('/products/add', upload_file.single('image'), async function (req, r
 
     try {
         await add_product(product_code, price, product_name, description, filename);
-        await add_category_links(product_code, categories);
+        
+        if (req.body.categories) {
+            let categories;
+            //req.body provides multiple categories as array, but one category as string
+            //Array must be guaranteed when category is a single string:
+            if (req.body.categories instanceof Array) categories = req.body.categories;
+            else categories = [req.body.categories];
+            await add_category_links(product_code, categories);
+        } 
+        
         res.send('Product was uploaded successfully.');
     }
     catch (error) {
