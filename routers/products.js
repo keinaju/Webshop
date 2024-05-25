@@ -5,8 +5,8 @@ const add_product = require('../services/add_product');
 const upload_file = require('../services/upload_file');
 const get_categories = require('../services/get_categories');
 
-router.get('/products/add', (req, res) => {
-    res.render('add_product');
+router.get('/products/add', async (req, res) => {
+    res.render('add_product', { categories_list: await get_categories() });
 });
 
 router.post('/products/add', upload_file.single('image'), async function (req, res, next) {
