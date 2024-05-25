@@ -29,14 +29,7 @@ block child
         div
             |Categories:
         div
-            input(id='CD' type='checkbox' name='category' value='CD')
-            label(for='CD') CD, 
-            input(id='Miscellaneous' type='checkbox' name='category' value='Miscellaneous')
-            label(for='Miscellaneous') Miscellaneous, 
-            input(id='Turntables' type='checkbox' name='category' value='Turntables')
-            label(for='Turntables') Turntables, 
-            input(id='Vinyl' type='checkbox' name='category' value='Vinyl')
-            label(for='Vinyl') Vinyl
+            include categories_list.pug
 
         div
             label(for='image') Image:
