@@ -1,7 +1,7 @@
 if(categories_list)
     each item in categories_list
         br
-        input(id='category_' + item.id, type='checkbox', name='category', value=item.id)
+        input(id='category_' + item.id, type='checkbox', name='categories', value=item.id)
         label(for='category_' + item.id) #{item.name}
 else
     |No categories provided.

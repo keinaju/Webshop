@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const get_products = require('../services/get_products');
 const add_product = require('../services/add_product');
-const upload_file = require('../services/upload_file');
+const get_products = require('../services/get_products');
+const add_category_links = require('../services/add_category_links');
 const get_categories = require('../services/get_categories');
+const upload_file = require('../services/upload_file');
 
 router.get('/products/add', async (req, res) => {
     res.render('add_product', { categories_list: await get_categories() });
@@ -18,6 +19,7 @@ router.post('/products/add', upload_file.single('image'), async function (req, r
 
     try {
         await add_product(product_code, price, product_name, description, filename);
+        await add_category_links(product_code, categories);
         res.send('Product was uploaded successfully.');
     }
     catch (error) {
