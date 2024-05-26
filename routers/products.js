@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const add_product = require('../services/add_product');
-const get_products = require('../services/get_products');
+const get_products_by_categories = require('../services/get_products_by_categories');
 const add_category_links = require('../services/add_category_links');
 const get_categories = require('../services/get_categories');
 const upload_file = require('../services/upload_file');
@@ -37,11 +37,12 @@ router.post('/products/add', upload_file.single('image'), async function (req, r
     }
 });
 
-router.get('/products/list/:page(\\d+)', async function (req, res, next) {
-    const page = req.params.page;
+router.get('/products', async function (req, res, next) {
+    const page = req.query.page || 0;
+    const chosen_categories = req.query.categories || null;
     try {
         res.render('products_list', {
-            'product_list': await get_products(20, 20 * page),
+            'product_list': await get_products_by_categories(20, 20 * page, chosen_categories),
             'page_number': page,
             'categories_list': await get_categories(),
         });
