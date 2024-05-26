@@ -3,20 +3,16 @@ extends main.pug
 block child
     div.product-section
         div.sidebar
-            b Search:
+            |Search:
             br
-            input(type='search' size='18')
+            input(id='search_node' type='search' size='18')
             hr
-            b Categories:
+            |Categories:
             include categories_list.pug
-            hr
-            b Order by
-                |(name, price, etc.)
             hr
             script
                 include apply_filter.js
-            a(onclick='apply_filter(); return false;')
-                b Apply
+            a(onclick='apply_filter(); return false;') Apply settings
         div.product-list
             if(Object.keys(product_list).length)
                 table

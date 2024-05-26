@@ -3,5 +3,11 @@ if(categories_list)
         br
         input(id='category_' + item.id, type='checkbox', name='categories', value=item.id)
         label(for='category_' + item.id) #{item.name}
+    br
+    script
+        include set_all_categories.js
+    a(onclick='set_all_categories(true); return false;') Select all
+    br
+    a(onclick='set_all_categories(false); return false;') Unselect all
 else
     |No categories provided.
