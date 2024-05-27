@@ -29,6 +29,8 @@
 .page-selector {
     display: grid;
     grid-template-columns: 30% 40% 30%;
+    background-color: black;
+    color: white;
 }
 
 .align-right {
