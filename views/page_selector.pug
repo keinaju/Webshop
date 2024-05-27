@@ -7,7 +7,7 @@ div.page-selector
     div.align-center
         |Current page is #{page_number} of X.
         br
-        |Showing products X-X of X.
+        |Showing products X-X of #{product_count}.
     div.align-right
         a(onclick=`apply_filter(${Number(page_number) + 1}); return false;`) Next page →
         br

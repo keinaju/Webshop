@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const add_product = require('../services/add_product');
 const get_products = require('../services/get_products');
+const get_products_count = require('../services/get_products_count');
 const add_category_links = require('../services/add_category_links');
 const get_categories = require('../services/get_categories');
 const upload_file = require('../services/upload_file');
@@ -46,6 +47,7 @@ router.get('/products', async function (req, res, next) {
     try {
         res.render('products_list', {
             'product_list': await get_products(20, 20 * page, chosen_categories, regex),
+            'product_count': await get_products_count(chosen_categories, regex),
             'categories_list': await get_categories(),
             'page_number': page,
             'chosen_categories': chosen_categories ? chosen_categories.split(',') : [],
