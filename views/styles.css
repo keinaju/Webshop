@@ -8,7 +8,8 @@
     grid-template-columns: 550px 550px;
     grid-template-rows: 80px;
     justify-content: center;
-    background-color: #555555;
+    /* background-color: #E42528; */
+    background-color: #25e4ab;
 }
 
 .product-section {
@@ -41,6 +42,7 @@
 a {
     color: blue;
     text-decoration: none;
+    cursor: pointer;
 }
 
 a:hover {
