@@ -40,10 +40,13 @@ router.post('/products/add', upload_file.single('image'), async function (req, r
 router.get('/products', async function (req, res, next) {
     const page = req.query.page || 0;
     const chosen_categories = req.query.categories || null;
-    const search_string = req.query.search || '.*';
+    //Convert user input to MySQL regular expression
+    let regex = '.*';
+    if(req.query.search) regex = req.query.search.replaceAll(/ +/g, '|');
+    console.log(regex);
     try {
         res.render('products_list', {
-            'product_list': await get_products(20, 20 * page, chosen_categories, search_string),
+            'product_list': await get_products(20, 20 * page, chosen_categories, regex),
             'page_number': page,
             'categories_list': await get_categories(),
         });
