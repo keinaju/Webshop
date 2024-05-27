@@ -7,7 +7,7 @@ const get_categories = require('../services/get_categories');
 const upload_file = require('../services/upload_file');
 
 router.get('/products/add', async (req, res) => {
-    res.render('add_product', { categories_list: await get_categories() });
+    res.render('add_product', { categories_list: await get_categories(), chosen_categories: [] });
 });
 
 router.post('/products/add', upload_file.single('image'), async function (req, res, next) {
@@ -43,12 +43,13 @@ router.get('/products', async function (req, res, next) {
     //Convert user input to MySQL regular expression
     let regex = '.*';
     if(req.query.search) regex = req.query.search.replaceAll(/ +/g, '|');
-    console.log(regex);
     try {
         res.render('products_list', {
             'product_list': await get_products(20, 20 * page, chosen_categories, regex),
-            'page_number': page,
             'categories_list': await get_categories(),
+            'page_number': page,
+            'chosen_categories': chosen_categories ? chosen_categories.split(',') : [],
+            'search_string': req.query.search,
         });
     }
     catch (error) {

@@ -1,8 +1,15 @@
 if(categories_list)
     each item in categories_list
         br
-        input(id='category_' + item.id, type='checkbox', name='categories', value=item.id)
-        label(for='category_' + item.id) #{item.name}
+        input(
+            id='category_' + item.id,
+            type='checkbox',
+            name='categories',
+            value=item.id,
+            checked= chosen_categories.includes(item.id.toString()) 
+            )
+        label(for='category_' + item.id)
+            |#{item.name}
     br
     script
         include set_all_categories.js
