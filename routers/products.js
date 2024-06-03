@@ -46,9 +46,11 @@ router.get('/products', async function (req, res, next) {
     if(req.query.search) regex = req.query.search.replaceAll(/ +/g, '|');
     try {
         const list_length = 20;
-        const product_list = await get_products(list_length, list_length * page, chosen_categories, regex);
-        const product_count = await get_products_count(chosen_categories, regex);
-        const categories_list = await get_categories();
+        const [product_list, product_count, categories_list] = await Promise.all([
+            get_products(list_length, list_length * page, chosen_categories, regex),
+            get_products_count(chosen_categories, regex),
+            get_categories(),
+        ]);
         const total_of_pages = Math.ceil(product_count / list_length);
         res.render('products_list', {
             'product_list': product_list,
