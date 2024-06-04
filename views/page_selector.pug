@@ -12,4 +12,4 @@ div.page-selector
         if page_number + 1 < total_of_pages
             a(onclick=`apply_filter(${Number(page_number) + 1}); return false;`) Next page →
             br
-            a(onclick=`apply_filter(${total_of_pages}); return false;`) Go to the last page
+            a(onclick=`apply_filter(${total_of_pages - 1}); return false;`) Go to the last page
