@@ -7,11 +7,6 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- -----------------------------------------------------
 -- Schema mydb
 -- -----------------------------------------------------
-
--- -----------------------------------------------------
--- Schema mydb
--- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 ;
 -- -----------------------------------------------------
 -- Schema webshop
 -- -----------------------------------------------------
@@ -19,23 +14,7 @@ CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 ;
 -- -----------------------------------------------------
 -- Schema webshop
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `webshop` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci ;
-USE `mydb` ;
-
--- -----------------------------------------------------
--- Table `mydb`.`users`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`users` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `email` VARCHAR(100) NOT NULL,
-  `hashed_password` VARCHAR(100) NOT NULL,
-  `role` VARCHAR(100) NOT NULL,
-  `first_name` VARCHAR(100) NOT NULL,
-  `last_name` VARCHAR(100) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE)
-ENGINE = InnoDB;
-
+CREATE SCHEMA IF NOT EXISTS `webshop` ;
 USE `webshop` ;
 
 -- -----------------------------------------------------
@@ -91,6 +70,21 @@ COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
+-- Table `webshop`.`users`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `webshop`.`users` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `email` VARCHAR(100) NOT NULL,
+  `hashed_password` VARCHAR(100) NOT NULL,
+  `role` VARCHAR(100) NOT NULL,
+  `first_name` VARCHAR(100) NOT NULL,
+  `last_name` VARCHAR(100) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
 -- Table `webshop`.`orders`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `webshop`.`orders` (
@@ -100,8 +94,8 @@ CREATE TABLE IF NOT EXISTS `webshop`.`orders` (
   `quantity` INT NOT NULL,
   `price` DECIMAL(10,2) UNSIGNED NOT NULL,
   `status` VARCHAR(100) NOT NULL,
-  `customer` INT NOT NULL,
   `instructions` TEXT NULL,
+  `customer` INT NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_orders_products_idx` (`product` ASC) VISIBLE,
   INDEX `fk_orders_users1_idx` (`customer` ASC) VISIBLE,
@@ -112,7 +106,7 @@ CREATE TABLE IF NOT EXISTS `webshop`.`orders` (
     ON UPDATE CASCADE,
   CONSTRAINT `fk_orders_users1`
     FOREIGN KEY (`customer`)
-    REFERENCES `mydb`.`users` (`id`)
+    REFERENCES `webshop`.`users` (`id`)
     ON DELETE RESTRICT
     ON UPDATE CASCADE)
 ENGINE = InnoDB
