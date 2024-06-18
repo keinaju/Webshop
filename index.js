@@ -11,6 +11,7 @@ app.set('view engine', 'pug');
 app.use(
     require('./routers/products'),
     require('./routers/categories'),
+    require('./routers/users'),
     express.static(path.join(__dirname, 'public')) //Serve static files from public folder
 );
 

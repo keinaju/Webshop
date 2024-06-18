@@ -1,0 +1,39 @@
+extends main.pug
+
+block child
+    form(action='http://localhost:3000/users/add' method='post' enctype='multipart/form-data')
+
+        div
+            b Fill form to register as a new user:
+
+        div
+            label(for='first_name') First name:
+            br
+            input(id='first_name' name='first_name' type='text' size='60' minlength='1' maxlength='100' required)
+
+        div
+            label(for='last_name') Last name:
+            br
+            input(id='last_name' name='last_name' type='text' size='60' minlength='1' maxlength='100' required)
+
+        div
+            label(for='email') Email:
+            br
+            input(id='email' name='email' type='email' size='60' minlength='1' maxlength='100' required)
+
+        div
+            label(for='password') Password:
+            br
+            input(id='password' name='password' type='text' size='60' minlength='8' maxlength='100' required)
+        
+        div
+            label(for='role') Role:
+            br
+            select(id='role' name='role')
+                option(value='customer') Customer
+                option(value='merchant') Merchant
+                option(value='admin') Admin
+
+        div
+            br
+            button(type='submit') Register

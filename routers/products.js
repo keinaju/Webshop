@@ -20,7 +20,7 @@ router.post('/products/add', upload_file.single('image'), async function (req, r
 
     try {
         await add_product(product_code, price, product_name, description, filename);
-        
+
         if (req.body.categories) {
             let categories;
             //req.body provides multiple categories as array, but one category as string
@@ -28,8 +28,8 @@ router.post('/products/add', upload_file.single('image'), async function (req, r
             if (req.body.categories instanceof Array) categories = req.body.categories;
             else categories = [req.body.categories];
             await add_category_links(product_code, categories);
-        } 
-        
+        }
+
         res.send('Product was uploaded successfully.');
     }
     catch (error) {
@@ -43,7 +43,7 @@ router.get('/products', async function (req, res, next) {
     const chosen_categories = req.query.categories || null;
     //Convert user input to MySQL regular expression
     let regex = '.*';
-    if(req.query.search) regex = req.query.search.replaceAll(/ +/g, '|');
+    if (req.query.search) regex = req.query.search.replaceAll(/ +/g, '|');
     try {
         const list_length = 20;
         const [product_list, product_count, categories_list] = await Promise.all([
