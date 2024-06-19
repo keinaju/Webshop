@@ -2,15 +2,34 @@ const express = require('express');
 const app = express();
 const port = 3000;
 const path = require('path');
+const session = require('express-session');
+const MemoryStore = require('memorystore')(session);
+const passport = require('passport');
+require('dotenv').config();
 
 //View engine settings
 app.set('views', './views');
 app.set('view engine', 'pug');
 
-//Middlewares
+//Session support
+app.use(session({
+    secret: process.env.SESSION_SECRET,
+    cookie: {
+        maxAge: 86400000
+    },
+    store: new MemoryStore({
+        checkPeriod: 86400000 //expire entries in 24h
+    }),
+    resave: false,
+    saveUninitialized: false,
+}));
+app.use(passport.authenticate('session'));
+
+//Routes
 app.use(
     require('./routers/categories'),
     require('./routers/login'),
+    require('./routers/logout'),
     require('./routers/products'),
     require('./routers/users'),
     express.static(path.join(__dirname, 'public')) //Serve static files from public folder

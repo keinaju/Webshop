@@ -62,6 +62,7 @@ router.get('/products', async function (req, res, next) {
             'showing_last': Math.min(list_length * (page + 1), product_count),
             'chosen_categories': chosen_categories ? chosen_categories.split(',') : [],
             'search_string': req.query.search,
+            'user': req.user,
         });
     }
     catch (error) {
