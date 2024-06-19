@@ -1,0 +1,26 @@
+extends main.pug
+
+block child
+    form(action='http://localhost:3000/login' method='post' enctype='multipart/form-data')
+
+        div
+            b Welcome! Sign in to continue:
+
+        div
+            label(for='email') Email:
+            br
+            input(id='email' name='email' type='email' size='60' minlength='1' maxlength='100' required)
+
+        div
+            label(for='password') Password:
+            br
+            input(id='password' name='password' type='text' size='60' minlength='8' maxlength='100' required)
+
+        div
+            br
+            button(type='submit') Sign in
+        
+        div
+            br
+            |Don't have an account? 
+            a Click here to sign up!

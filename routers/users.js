@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const add_user = require('../services/add_user');
-const multer = require('multer')
+const multer = require('multer');
 const multer_parser = multer();
 
-router.get('/users/add', async (req, res) => {
+router.get('/users/add', (req, res) => {
     res.render('add_user');
 });
 
