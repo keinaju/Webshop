@@ -8,7 +8,6 @@
     grid-template-columns: 550px 550px;
     grid-template-rows: 80px;
     justify-content: center;
-    /* background-color: #E42528; */
     background-color: #25e4ab;
 }
 
@@ -29,8 +28,7 @@
 .page-selector {
     display: grid;
     grid-template-columns: 30% 40% 30%;
-    background-color: black;
-    color: white;
+    background-color: #dbdbdb;
 }
 
 .align-right {
@@ -59,10 +57,14 @@ textarea {
     resize: none;
 }
 
-input, textarea, button, search {
-    border-radius: 10px;
+input,
+textarea,
+button,
+search {
+    border-radius: 4px;
     background-color: #eeeeee;
     font-size: 14px;
+    border-color: white;
 }
 
 input:invalid {
