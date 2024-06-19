@@ -6,7 +6,7 @@ const multer_parser = multer();
 const bcrypt = require('bcrypt');
 
 router.get('/users/add', (req, res) => {
-    res.render('add_user');
+    res.render('add_user', { user: req.user });
 });
 
 router.post('/users/add', multer_parser.none(), async function (req, res, next) {

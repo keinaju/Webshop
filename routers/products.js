@@ -8,7 +8,11 @@ const get_categories = require('../services/get_categories');
 const upload_file = require('../services/upload_file');
 
 router.get('/products/add', async (req, res) => {
-    res.render('add_product', { categories_list: await get_categories(), chosen_categories: [] });
+    res.render('add_product', {
+        categories_list: await get_categories(),
+        chosen_categories: [],
+        user: req.user,
+    });
 });
 
 router.post('/products/add', upload_file.single('image'), async function (req, res, next) {
@@ -53,16 +57,16 @@ router.get('/products', async function (req, res, next) {
         ]);
         const total_of_pages = Math.ceil(product_count / list_length);
         res.render('products_list', {
-            'product_list': product_list,
-            'product_count': product_count,
-            'categories_list': categories_list,
-            'page_number': page,
-            'total_of_pages': total_of_pages,
-            'showing_first': list_length * page + 1,
-            'showing_last': Math.min(list_length * (page + 1), product_count),
-            'chosen_categories': chosen_categories ? chosen_categories.split(',') : [],
-            'search_string': req.query.search,
-            'user': req.user,
+            product_list: product_list,
+            product_count: product_count,
+            categories_list: categories_list,
+            page_number: page,
+            total_of_pages: total_of_pages,
+            showing_first: list_length * page + 1,
+            showing_last: Math.min(list_length * (page + 1), product_count),
+            chosen_categories: chosen_categories ? chosen_categories.split(',') : [],
+            search_string: req.query.search,
+            user: req.user,
         });
     }
     catch (error) {
