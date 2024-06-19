@@ -14,9 +14,11 @@ async function verify(email, password, cb) {
         if (!user)
             return cb(null, false, { message: 'User doesn\'t exist.' });
 
-        const match = await bcrypt.compare(password, user.hashed_password);
-        if (match) return cb(null, user);
-        else return cb(null, false, { message: 'Incorrect password.' });
+        bcrypt.compare(password, user.hashed_password, (error, result) => {
+            if (error) return cb(error);
+            if (result) return cb(null, user);
+            else return cb(null, false, { message: 'Incorrect password.' });
+        });
 
     }
     catch (error) {
