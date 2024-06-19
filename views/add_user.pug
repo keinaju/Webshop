@@ -24,8 +24,13 @@ block child
         div
             label(for='password') Password:
             br
-            input(id='password' name='password' type='text' size='60' minlength='8' maxlength='100' required)
-        
+            input(id='password' name='password' type='password' size='60' minlength='8' maxlength='100' required)
+
+        div
+            label(for='confirm_password') Confirm password:
+            br
+            input(id='confirm_password' name='confirm_password' type='password' size='60' minlength='8' maxlength='100' required)
+
         div
             label(for='role') Role:
             br
