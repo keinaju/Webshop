@@ -10,7 +10,7 @@ router.get('/users/add', (req, res) => {
 });
 
 router.post('/users/add', multer_parser.none(), async function (req, res, next) {
-    const { email, password, first_name, last_name, role } = req.body;
+    const { email, password, first_name, last_name, role = 'customer' } = req.body;
 
     try {
         bcrypt.hash(password, 10, async (error, hashed_password) => {
