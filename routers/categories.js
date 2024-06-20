@@ -2,12 +2,13 @@ const express = require('express');
 const router = express.Router();
 const add_category = require('../services/add_category');
 const upload_file = require('../services/upload_file');
+const pass = require('../services/pass');
 
-router.get('/categories/add', (req, res) => {
+router.get('/categories/add', pass('merchant', 'admin'), (req, res) => {
     res.render('add_category', { user: req.user });
 });
 
-router.post('/categories/add', upload_file.single('image'), async function (req, res, next) {
+router.post('/categories/add', pass('merchant', 'admin'), upload_file.single('image'), async function (req, res, next) {
     let { category_name } = req.body;
 
     let filename = null;
