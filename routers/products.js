@@ -6,8 +6,9 @@ const get_products_count = require('../services/get_products_count');
 const add_category_links = require('../services/add_category_links');
 const get_categories = require('../services/get_categories');
 const upload_file = require('../services/upload_file');
+const pass = require('../services/pass');
 
-router.get('/products/add', async (req, res) => {
+router.get('/products/add', pass('merchant', 'admin'), async (req, res, next) => {
     res.render('add_product', {
         categories_list: await get_categories(),
         chosen_categories: [],
@@ -15,7 +16,7 @@ router.get('/products/add', async (req, res) => {
     });
 });
 
-router.post('/products/add', upload_file.single('image'), async function (req, res, next) {
+router.post('/products/add', pass('merchant', 'admin'), upload_file.single('image'), async function (req, res, next) {
     let { product_code, product_name, description, price } = req.body;
     if (product_code == '') product_code = Date.now();
 
