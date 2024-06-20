@@ -12,12 +12,12 @@ html
         if user
           |Logged in as #{user.first_name} (#{user.role})
           br
-          form(action='http://localhost:3000/logout' method='post' enctype='multipart/form-data')
+          form(action='/logout' method='post' enctype='multipart/form-data')
             a(onclick="this.closest('form').submit(); return false;") 👋 Sign out
         else
-          a(href='http://localhost:3000/login') 🔑 Sign in 
+          a(href='/login') 🔑 Sign in 
           |or 
-          a(href='http://localhost:3000/users/add') 📜 sign up!
+          a(href='/users/add') 📜 sign up!
           br
         |🛒 Cart: 0 pcs, 0.00 €
     

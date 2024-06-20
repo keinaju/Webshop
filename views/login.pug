@@ -1,7 +1,7 @@
 extends main.pug
 
 block child
-    form(action='http://localhost:3000/login' method='post' enctype='multipart/form-data')
+    form(action='/login' method='post' enctype='multipart/form-data')
 
         div
             b Welcome! Sign in to continue:
@@ -23,4 +23,4 @@ block child
         div
             br
             |Don't have an account? 
-            a(href='http://localhost:3000/users/add') Click here to sign up!
+            a(href='/users/add') Click here to sign up!
