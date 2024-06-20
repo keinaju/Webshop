@@ -28,6 +28,7 @@ app.use(passport.authenticate('session'));
 //Routes
 app.use(
     require('./routers/categories'),
+    require('./routers/default'),
     require('./routers/login'),
     require('./routers/logout'),
     require('./routers/products'),
