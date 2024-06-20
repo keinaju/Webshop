@@ -1,6 +1,9 @@
 extends main.pug
 
 block child
+    script
+        include post_json.js
+    
     div.product-section
         div.sidebar
             |Search:
@@ -39,7 +42,7 @@ block child
                             td
                                 |#{item.price} € / pc.
                                 br
-                                a(href='/products/') (add to cart)
+                                a(onclick=`post_json("/shoppingcart/add", { product_id: "${item.code}", quantity: 1 }).then((data) => { alert(data.message); }); return false;`) (add to cart)
             else
                 div.align-center 
                     |No results.

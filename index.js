@@ -32,6 +32,7 @@ app.use(
     require('./routers/login'),
     require('./routers/logout'),
     require('./routers/products'),
+    require('./routers/shopping_cart'),
     require('./routers/users'),
     express.static(path.join(__dirname, 'public')) //Serve static files from public folder
 );
