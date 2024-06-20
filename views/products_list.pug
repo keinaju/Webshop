@@ -42,7 +42,7 @@ block child
                             td
                                 |#{item.price} € / pc.
                                 br
-                                a(onclick=`post_json("/shoppingcart/add", { product_id: "${item.code}", quantity: 1 }).then((data) => { alert(data.message); }); return false;`) (add to cart)
+                                a(onclick=`post_json("/shoppingcart/add", { product_id: "${item.code}", quantity: 1 }).then((data) => { alert(data.message); }); return false;`) 🛒 Shop now!
             else
                 div.align-center 
                     |No results.
