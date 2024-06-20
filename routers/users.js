@@ -16,8 +16,14 @@ router.post('/users/add', multer_parser.none(), async function (req, res, next) 
         bcrypt.hash(password, 10, async (error, hashed_password) => {
             if (error)
                 next(error);
-            await add_user(email, hashed_password, first_name, last_name, role);
-            res.send('User registered successfully.');
+            try {
+                await add_user(email, hashed_password, first_name, last_name, role);
+                res.send('User registered successfully.');
+            }
+            catch (error) {
+                console.error('Error in user registration.', error.message);
+                next(error);
+            }
         });
     }
     catch (error) {
