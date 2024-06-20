@@ -10,13 +10,13 @@ html
       div.logo
       div.user-info.align-right
         if user
-          |Logged in as #{user.first_name}
+          |Logged in as #{user.first_name} (#{user.role})
           br
           form(action='http://localhost:3000/logout' method='post' enctype='multipart/form-data')
-            a(onclick="this.closest('form').submit(); return false;") 👋 Sign out 
+            a(onclick="this.closest('form').submit(); return false;") 👋 Sign out
         else
           a(href='http://localhost:3000/login') 🔑 Sign in
-        br
+          br
         |🛒 Cart: 0 pcs, 0.00 €
     
     block child
