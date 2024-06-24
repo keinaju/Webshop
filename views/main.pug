@@ -11,8 +11,8 @@ html
       div.user-info.align-right
         if user
           form(action='/logout' method='post' enctype='multipart/form-data')
-              |👤 Signed in as #{user.first_name} 
-              a(onclick="this.closest('form').submit(); return false;") (click to sign out 👋)
+              |👤 Signed in as #{user.first_name}. 
+              a(onclick="this.closest('form').submit(); return false;") (👋 Sign out)
         else
           a(href='/login') 🔑 Sign in 
           |or 
