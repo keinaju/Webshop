@@ -31,6 +31,7 @@ app.use(
     require('./routers/default'),
     require('./routers/login'),
     require('./routers/logout'),
+    require('./routers/order'),
     require('./routers/products'),
     require('./routers/shopping_cart'),
     require('./routers/users'),

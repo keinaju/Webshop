@@ -1,4 +1,4 @@
-class ShoppingCart {
+module.exports = class ShoppingCart {
     #contents = [];
 
     constructor(contents = []) {
@@ -71,4 +71,4 @@ class ShoppingCart {
         return `${this.get_total_quantity()} items, ${this.get_total_price()} €`;
     }
 
-}
+};

@@ -11,6 +11,21 @@
     background-color: #25e4ab;
 }
 
+.order-section {
+    display: grid;
+    grid-template-columns: 700px;
+    justify-content: center;
+}
+
+.order-row {
+    display: grid;
+    grid-template-columns: 20% 80%;
+}
+
+.order-row-text {
+    background-color: rgb(233, 233, 233);
+}
+
 .product-section {
     display: grid;
     grid-template-columns: 200px 900px;
@@ -39,6 +54,21 @@
     text-align: center;
 }
 
+th {
+    text-align: left;
+}
+
+table,
+td,
+th {
+    border: 1px solid;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
 a {
     color: blue;
     text-decoration: none;
@@ -47,10 +77,6 @@ a {
 
 a:hover {
     color: magenta;
-}
-
-tr:hover {
-    background-color: #ebebeb;
 }
 
 textarea {

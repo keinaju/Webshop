@@ -11,13 +11,13 @@ html
       div.user-info.align-right
         if user
           form(action='/logout' method='post' enctype='multipart/form-data')
-              |👤 Signed in as #{user.first_name}. 
+              |👤 Signed in as #{user.first_name} 
               a(onclick="this.closest('form').submit(); return false;") (👋 Sign out)
+          a(href='/order') 📦 Proceed to checkout
         else
           a(href='/login') 🔑 Sign in 
           |or 
           a(href='/users/add') 📜 sign up!
           br
-        |💳 Proceed to checkout (0 items, 0.00 €)
     
     block child
