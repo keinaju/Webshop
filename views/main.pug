@@ -10,10 +10,9 @@ html
       div.logo
       div.user-info.align-right
         if user
-          |Logged in as #{user.first_name} (#{user.role})
-          br
           form(action='/logout' method='post' enctype='multipart/form-data')
-            a(onclick="this.closest('form').submit(); return false;") 👋 Sign out
+              |👤 Signed in as #{user.first_name} 
+              a(onclick="this.closest('form').submit(); return false;") (click to sign out 👋)
         else
           a(href='/login') 🔑 Sign in 
           |or 
