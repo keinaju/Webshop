@@ -2,26 +2,31 @@ extends main.pug
 
 block child
     div.order-section
-        b You are about to order following items:
-        each product in products
-            div.order-row
-                div.align-center
-                    img(src='/images/' + product.image_file width='100px' style='border-radius: 50%;')
-                div.order-row-text
-                    b #{product.product_id}: #{product.name}
-                    br
-                    i #{product.description}
-                    br
-                    div.align-right
-                        | #{product.price_per_pc} € * #{product.quantity} = #{product.price_per_pc * product.quantity} €
-                    hr
-        b Summary:
-        |Total of #{total_price} €
-        form(action='/order' method='post' enctype='multipart/form-data')
-            b: label(for='instructions') Instructions:
-            br
-            textarea(id='instructions' name='instructions' rows='3' cols='60')
-            br
-            input(id='products_as_json' name='products_as_json' type='text' required value=products_as_json hidden)
-            br
-            button 📥 Submit order!
+        if products
+            b You are about to order following items:
+            each product in products
+                div.order-row
+                    div.align-center
+                        img(src='/images/' + product.image_file width='100px' style='border-radius: 50%;')
+                    div.order-row-text
+                        b #{product.product_id}: #{product.name}
+                        br
+                        i #{product.description}
+                        br
+                        div.align-right
+                            | #{product.price_per_pc} € * #{product.quantity} = #{product.price_per_pc * product.quantity} €
+                        hr
+            b Summary:
+            |Total of #{total_price} €
+            form(action='/order' method='post' enctype='multipart/form-data')
+                b: label(for='instructions') Instructions:
+                br
+                textarea(id='instructions' name='instructions' rows='3' cols='60')
+                br
+                input(id='products_as_json' name='products_as_json' type='text' required value=products_as_json hidden)
+                br
+                button 📥 Submit order!
+        else
+            p
+                |Your shopping cart is empty!  
+                a(href='/') Shop something!

@@ -8,22 +8,24 @@ const add_order = require('../services/add_order');
 const reset_shopping_cart_by_user = require('../services/reset_shopping_cart_by_user');
 const multer_parser = multer();
 
-router.get('/order', pass('customer', 'merchant', 'admin'), async (req, res) => {
+router.get('/order', pass('customer', 'merchant', 'admin'), async (req, res, next) => {
     try {
         const user_data = await get_user_by_email(req.user.email);
         let shopping_cart = JSON.parse(user_data.shopping_cart);
         let total_price = 0;
-        for (const product_in_cart of shopping_cart) {
-            total_price += product_in_cart.price_per_pc * product_in_cart.quantity;
-            const product_data = await get_product_by_id(product_in_cart.product_id);
-            product_in_cart.name = product_data.name;
-            product_in_cart.description = product_data.description;
-            product_in_cart.image_file = product_data.image_file;
+        if (shopping_cart) {
+            for (const product_in_cart of shopping_cart) {
+                total_price += product_in_cart.price_per_pc * product_in_cart.quantity;
+                const product_data = await get_product_by_id(product_in_cart.product_id);
+                product_in_cart.name = product_data.name;
+                product_in_cart.description = product_data.description;
+                product_in_cart.image_file = product_data.image_file;
+            }
         }
         res.render('order', {
             user: req.user,
-            products: shopping_cart,
-            products_as_json: user_data.shopping_cart,
+            products: shopping_cart || null,
+            products_as_json: user_data.shopping_cart || null,
             total_price: total_price,
         });
     }
