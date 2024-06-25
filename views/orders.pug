@@ -1,7 +1,9 @@
 extends main.pug
 
 block child
-    |Filter by status: 
+    b Filter by:
+    br
+    |Status 
     select(name='filter' id='filter')
         option(value='all') All
         option(value='new') New
@@ -9,14 +11,21 @@ block child
         option(value='delivered') Delivered
         option(value='canceled') Canceled 
     br
+    |Order ID 
+    input(size='10')
     br
+    |Customer ID 
+    input(size='10')
+    br
+    br
+    |55 results, page 1 of 3 (← previous / next →)
     table
         tr
-            th Order#
+            th Order ID
             th Date
             th Product code / name
             th Quantity * unit price
-            th Customer
+            th Customer ID / name
             th Instructions 
             th Status
         tr
@@ -24,7 +33,7 @@ block child
             td 25.06.2024
             td ACDC1980 / AC/DC - Highway to Hell
             td 1 * 9.99 € = 9.99 €
-            td 501 Jukka Keinänen
+            td 501 / Jukka Keinänen
             td "Please ship as soon as possible! -Jukka"
             td
                 select
