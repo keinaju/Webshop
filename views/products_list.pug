@@ -28,9 +28,9 @@ block child
                         th(style='width:15%') Price                      
                     each item in product_list
                         tr
-                            td
+                            td(style='padding-right: 10px;')
                                 if item.image_file
-                                    img(src='/images/' + item.image_file width='100%' style='border-radius: 10%;')
+                                    img.shadow(src='/images/' + item.image_file width='100%' style='border-radius: 10%;')
                             td
                                 b #{item.name}
                                 br

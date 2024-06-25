@@ -54,6 +54,10 @@
     text-align: center;
 }
 
+.shadow {
+    box-shadow: 3px 3px 8px rgba(0, 0, 0, 1.0);
+}
+
 th {
     text-align: left;
 }
