@@ -1,0 +1,30 @@
+extends main.pug
+
+block child
+    |Filter by status: 
+    select(name='filter' id='filter')
+        option(value='all') All
+        option(value='new') New
+        option(value='processing') Processing
+        option(value='delivered') Delivered
+        option(value='canceled') Canceled 
+    br
+    br
+    table
+        tr
+            th Order#
+            th Date
+            th Product code / name
+            th Quantity * unit price
+            th Customer
+            th Instructions 
+            th Status
+        tr
+            td 101
+            td 25.06.2024
+            td ACDC1980 / AC/DC - Highway to Hell
+            td 1 * 9.99 € = 9.99 €
+            td 501 Jukka Keinänen
+            td "Please ship as soon as possible! -Jukka"
+            td
+                select
