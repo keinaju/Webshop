@@ -59,9 +59,10 @@ th {
 }
 
 table,
-td,
-th {
-    border: 1px solid;
+tr {
+    border-style: solid hidden solid hidden;
+    border-width: 5px;
+    border-color: #dbdbdb;
 }
 
 table {
