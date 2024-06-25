@@ -5,19 +5,26 @@ html
     style
       include styles.css
   body
+    script
+      include menu_handler.js
 
     div.top-section
       div.logo
       div.user-info.align-right
         if user
-          form(action='/logout' method='post' enctype='multipart/form-data')
-              |👤 Signed in as #{user.first_name} 
-              a(onclick="this.closest('form').submit(); return false;") (👋 Sign out)
-          a(href='/order') 📦 Proceed to checkout
-        else
-          a(href='/login') 🔑 Sign in 
-          |or 
-          a(href='/users/add') 📜 sign up!
+          |👤 Signed in as #{user.first_name} 
           br
+          label(for='menu') Go to: 
+          select(name='menu' id='menu' onchange='menu_handler();')
+            option(value='none') 
+            option(value='add_category') 📁 Add category
+            option(value='add_product') 📦 Add product
+            option(value='add_user') 👤 Add user
+            option(value='checkout') 💳 Checkout
+            option(value='orders') 📒 Orders
+            option(value='shop') 🛍️ Shop
+            option(value='signout') 🔒 Sign out
+        else
+          a(href='/login') 🔑 Sign in
     
     block child
