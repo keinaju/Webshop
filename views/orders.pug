@@ -1,39 +1,41 @@
 extends main.pug
 
 block child
-    b Filter by:
-    br
-    |Status 
-    select(name='filter' id='filter')
-        option(value='all') All
+    script
+        include apply_orders_filter.js
+        include set_order_status.js
+    label(for='status_filter') Filter by status: 
+    select(name='status_filter' id='status_filter' onchange='apply_orders_filter(); return false;')
+        option(value='none') 
         option(value='new') New
         option(value='processing') Processing
         option(value='delivered') Delivered
         option(value='canceled') Canceled 
     br
-    |Order ID 
-    input(size='10')
-    br
-    |Customer ID 
-    input(size='10')
-    br
-    br
-    |55 results, page 1 of 3 (← previous / next →)
+    |X results, page 0 of X (← previous / next →)
     table
         tr
             th Order ID
-            th Date
+            th Created
             th Product code / name
             th Quantity * unit price
             th Customer ID / name
             th Instructions 
             th Status
-        tr
-            td 101
-            td 25.06.2024
-            td ACDC1980 / AC/DC - Highway to Hell
-            td 1 * 9.99 € = 9.99 €
-            td 501 / Jukka Keinänen
-            td "Please ship as soon as possible! -Jukka"
-            td
-                select
+            th Change status
+        each order in orders
+            tr
+                td #{order.order_id}
+                td #{order.order_date.toISOString()}
+                td #{order.product_code} / #{order.product_name}
+                td #{order.order_quantity} * #{order.unit_price} € = #{order.order_quantity * order.unit_price} €
+                td #{order.customer_id} / #{order.customer_first_name} #{order.customer_last_name}
+                td #{order.order_instructions}
+                td #{order.order_status}
+                td
+                    select(id=`select_${order.order_id}` onchange=`set_order_status(${order.order_id}); return false;`)
+                        option(value='none' selected='selected')
+                        option(value='new') New
+                        option(value='processing') Processing
+                        option(value='delivered') Delivered
+                        option(value='canceled') Canceled 
