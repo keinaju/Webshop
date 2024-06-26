@@ -30,9 +30,10 @@ block child
                         tr
                             td(style='padding-right: 15px; padding-top: 5px; padding-bottom: 5px;')
                                 if item.image_file
-                                    img.shadow(src='/images/' + item.image_file width='100%' style='border-radius: 10%;')
+                                    a(href=`/product?code=${item.code}`)
+                                        img.shadow(src='/images/' + item.image_file width='100%' style='border-radius: 10%;')
                             td
-                                a(href=`/product?code=${item.code}`) #{item.name} 
+                                a(href=`/product?code=${item.code}`): b #{item.name} 
                                 br
                                 i #{item.description}
                                 br
@@ -42,7 +43,7 @@ block child
                             td.align-center
                                 |#{item.price} €
                                 br
-                                a.add-to-cart-button(onclick=`post_json("/shoppingcart/add", { product_id: "${item.code}", quantity: 1 }).then((data) => { alert(data.message); }); return false;`) 🛒 Add to cart!
+                                include add_to_cart_button.pug
             else
                 div.align-center 
                     |No results.

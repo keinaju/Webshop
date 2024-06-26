@@ -6,8 +6,10 @@ block child
 
     div.product-page-grid
         div.align-center(style='padding-right: 30px; padding-top: 30px;')
-            img.shadow(src='/images/' + item.image_file)
+            img.shadow(style='max-width:450px;' src='/images/' + item.image_file)
         div.product-card.shadow
+            div.align-right
+                |##{item.code}
             hr
             h1.align-right #{item.name}
             div.align-right
@@ -29,3 +31,7 @@ block child
             br
             if item.notes
                 |Notes: #{item.notes}
+                br
+            if item.lead_time_workdays
+                |Can be delivered in #{item.lead_time_workdays} working days.
+                br
