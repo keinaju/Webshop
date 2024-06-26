@@ -1,0 +1,31 @@
+extends main.pug
+
+block child
+    script
+        include post_json.js
+
+    div.product-page-grid
+        div(style='padding-right: 30px; padding-top: 30px;')
+            img.shadow(src='/images/' + item.image_file)
+        div.product-card.shadow
+            hr
+            h1.align-right #{item.name}
+            div.align-right
+                |#{item.price} € / unit 
+                include add_to_cart_button.pug
+            if item.released
+                |Released: #{`${item.released.getDate()}.${item.released.getMonth() + 1}.${item.released.getFullYear()}`}
+                br
+            if item.manufacturer
+                |Manufacturer: #{item.manufacturer}
+                br
+            if item.country_of_origin
+                |Country of origin: #{item.country_of_origin}
+                br
+            br
+            if item.description
+                div(style='border-left: black solid 1px; padding-left: 5px;'): i #{item.description}
+            br
+            br
+            if item.notes
+                |Notes: #{item.notes}

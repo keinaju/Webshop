@@ -26,6 +26,20 @@
     background-color: rgb(233, 233, 233);
 }
 
+.product-page-grid {
+    display: grid;
+    grid-template-columns: 500px 600px;
+    justify-content: center;
+}
+
+.product-card {
+    background-color: #eeeeee;
+    padding-top: 40px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 20px;
+}
+
 .product-section {
     display: grid;
     grid-template-columns: 200px 900px;
