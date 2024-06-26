@@ -17,14 +17,14 @@ router.get('/products/add', pass('merchant', 'admin'), async (req, res, next) =>
 });
 
 router.post('/products/add', pass('merchant', 'admin'), upload_file.single('image'), async function (req, res, next) {
-    let { product_code, product_name, description, price } = req.body;
+    let { product_code, product_name, description, price, manufacturer, country_of_origin, release_date, lead_time_workdays, notes } = req.body;
     if (product_code == '') product_code = Date.now();
 
     let filename = null;
     if (req.file) filename = req.file.filename;
 
     try {
-        await add_product(product_code, price, product_name, description, filename);
+        await add_product(product_code, price, product_name, description, filename, manufacturer, country_of_origin, release_date, lead_time_workdays, notes);
 
         if (req.body.categories) {
             let categories;

@@ -59,14 +59,13 @@
 }
 
 .add-to-cart-button {
-    padding-left: 10px;
-    padding-right: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
     border-style: solid;
     border-width: 0px;
     border-radius: 20px;
     background-color: rgb(0, 255, 128);
     color: black;
-    font-size: 18px;
     transition: all 0.25s ease-out;
 }
 
