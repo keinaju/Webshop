@@ -23,26 +23,26 @@ block child
                 table
                     tr
                         th(style='width:20%')
-                        th(style='width:50%') Product
-                        th(style='width:15%') Categories
-                        th(style='width:15%') Price
+                        th.align-center(style='width:50%') Product
+                        th.align-center(style='width:10%') Categories
+                        th.align-center(style='width:20%') Price
                     each item in product_list
                         tr
                             td(style='padding-right: 15px; padding-top: 5px; padding-bottom: 5px;')
                                 if item.image_file
                                     img.shadow(src='/images/' + item.image_file width='100%' style='border-radius: 10%;')
                             td
-                                b #{item.name}
+                                b #{item.name} 
                                 br
                                 i #{item.description}
                                 br
                                 br
-                            td
+                            td.align-center
                                 |#{item.categories}
-                            td
-                                |#{item.price} € / pc.
+                            td.align-center
+                                |#{item.price} €
                                 br
-                                a(onclick=`post_json("/shoppingcart/add", { product_id: "${item.code}", quantity: 1 }).then((data) => { alert(data.message); }); return false;`) 🛒 Add to cart
+                                a.add-to-cart-button(onclick=`post_json("/shoppingcart/add", { product_id: "${item.code}", quantity: 1 }).then((data) => { alert(data.message); }); return false;`) 🛒 Add to cart!
             else
                 div.align-center 
                     |No results.
