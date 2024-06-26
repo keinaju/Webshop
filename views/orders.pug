@@ -12,7 +12,11 @@ block child
         option(value='delivered') Delivered
         option(value='canceled') Canceled 
     br
-    |X results, page 0 of X (← previous / next →)
+    |#{orders_count} results, page #{+current_page + 1} of #{Math.floor(orders_count / 20) + 1} 
+    if current_page > 0
+        a(href=`/orders?status=${current_status}&page=${current_page - 1}`) (← previous) 
+    if current_page < Math.floor(orders_count / 20)
+        a(href=`/orders?status=${current_status}&page=${+current_page + 1}`)  (next →)
     table
         tr
             th Order ID

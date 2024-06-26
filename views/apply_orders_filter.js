@@ -1,4 +1,4 @@
 function apply_orders_filter() {
     const status = document.querySelector('#status_filter').value;
-    location.href = '/orders?status=' + status;
+    location.href = `/orders?status=${status}&page=0`;
 }
