@@ -98,14 +98,15 @@
     padding-right: 10px;
     border-style: solid;
     border-width: 0px;
+    border-radius: 20px;
     background-color: yellow;
     color: black;
     transition: all 0.2s ease-out;
 }
 
 .sign-in-button:hover {
-    background-color: white;
-    color: blue;
+    background-color: magenta;
+    color: white;
     transition: all 0.2s ease-out;
 }
 
