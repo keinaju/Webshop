@@ -15,7 +15,7 @@ block child
             hr
             script
                 include apply_products_filter.js
-            a(onclick='apply_products_filter(); return false;') Apply settings
+            div.align-center: a.rounded-button(onclick='apply_products_filter(); return false;') Apply filters
         div.product-list
             include page_selector.pug
             

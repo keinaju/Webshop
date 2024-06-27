@@ -1,2 +1,2 @@
-a.add-to-cart-button(onclick=`post_json("/shoppingcart/add", { product_id: "${item.code}", quantity: 1 }).then((data) => { alert(data.message); }); return false;`)
+a.rounded-button(onclick=`post_json("/shoppingcart/add", { product_id: "${item.code}", quantity: 1 }).then((data) => { alert(data.message); }); return false;`)
     |🛒 Add to cart!

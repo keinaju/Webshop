@@ -76,37 +76,20 @@
     box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.8);
 }
 
-.add-to-cart-button {
-    padding-left: 5px;
-    padding-right: 5px;
-    border-style: solid;
-    border-width: 0px;
-    border-radius: 20px;
-    background-color: rgb(0, 255, 128);
-    color: black;
-    transition: all 0.2s ease-out;
-}
-
-.add-to-cart-button:hover {
-    background-color: black;
-    color: white;
-    transition: all 0.2s ease-out;
-}
-
-.sign-in-button {
+.rounded-button {
     padding-left: 10px;
     padding-right: 10px;
     border-style: solid;
     border-width: 0px;
     border-radius: 20px;
-    background-color: yellow;
-    color: black;
+    background-color: rgb(0, 255, 128);
     transition: all 0.2s ease-out;
+    color: black;
 }
 
-.sign-in-button:hover {
-    background-color: magenta;
+.rounded-button:hover {
     color: white;
+    background-color: black;
     transition: all 0.2s ease-out;
 }
 

@@ -7,12 +7,12 @@ block child
     div.product-page-grid
         div
             br
-            a(href='javascript:history.back()') ← Return
+            a.rounded-button(href='javascript:history.back()') ← Return
         div
             if modify
                 div.align-right
                     br
-                    a.sign-in-button(href='products/modify?code='+item.code) 📝 Modify this product
+                    a.rounded-button(href='products/modify?code='+item.code) 📝 Modify this product
                     br
                     br
 

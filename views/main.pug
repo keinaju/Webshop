@@ -10,7 +10,7 @@ html
 
     div.top-section
       div.logo
-        a(href='/'): img(src='/images/logo.png' width='100%')
+        a(href='/'): img(src='/images/logo.png' height='100%')
       div.user-info.align-right
         if user
           |👤 Signed in as #{user.first_name} 
@@ -27,6 +27,6 @@ html
               option(value='add_user') 👤 Add user
               option(value='orders') 📒 Orders
         else
-          a.sign-in-button(href='/login') 🔑 Sign in
+          a(href='/login') 🔑 Sign in
     
     block child
