@@ -5,6 +5,10 @@ block child
         include post_json.js
 
     div.product-page-grid
+        div
+            a(href='javascript:history.back()') ← Return
+        div
+
         div.align-center(style='padding-right: 30px; padding-top: 30px;')
             img.shadow(style='max-width:450px;' src='/images/' + item.image_file)
         div.product-card.shadow
