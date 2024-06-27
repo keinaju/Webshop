@@ -5,14 +5,21 @@ const get_products = require('../services/get_products');
 const get_products_count = require('../services/get_products_count');
 const add_category_links = require('../services/add_category_links');
 const get_categories = require('../services/get_categories');
+const get_categories_by_id = require('../services/get_categories_by_id');
 const upload_file = require('../services/upload_file');
 const pass = require('../services/pass');
+const get_date_yyyy_mm_dd = require('../services/get_date_yyyy_mm_dd');
+const get_product_by_id = require('../services/get_product_by_id');
+
 
 router.get('/products/add', pass('merchant', 'admin'), async (req, res, next) => {
-    res.render('add_product', {
+    res.render('product_form', {
+        headline: 'Fill form to add new product to database:',
+        post_destination: '/products/add',
         categories_list: await get_categories(),
         chosen_categories: [],
         user: req.user,
+        product: {}
     });
 });
 
@@ -72,6 +79,35 @@ router.get('/products', async function (req, res, next) {
     }
     catch (error) {
         console.error('Error in product query.', error.message);
+        next(error);
+    }
+});
+
+router.get('/products/modify', pass('merchant', 'admin'), async (req, res, next) => {
+    try {
+        if (!req.query.code) return res.send('Missing product code.');
+        let [product, categories_list, chosen_categories] = await Promise.all([
+            get_product_by_id(req.query.code),
+            get_categories(),
+            get_categories_by_id(req.query.code)
+        ]);
+        //Ensure correct format of categories for view engine
+        chosen_categories = chosen_categories.map(element => element.category.toString());
+        console.log(chosen_categories);
+        //Ensure correct date format for view engine
+        if (product.released) product.released = get_date_yyyy_mm_dd(product.released);
+
+        res.render('product_form', {
+            headline: 'Modify product data:',
+            post_destination: '/products/modify',
+            product: product,
+            categories_list: categories_list,
+            chosen_categories: chosen_categories,
+            user: req.user,
+        });
+    }
+    catch (error) {
+        console.log('Error in GET /products/modify', error.message);
         next(error);
     }
 });
