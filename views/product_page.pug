@@ -6,8 +6,15 @@ block child
 
     div.product-page-grid
         div
+            br
             a(href='javascript:history.back()') ← Return
         div
+            if modify
+                div.align-right
+                    br
+                    a.sign-in-button(href='products/modify?code='+item.code) 📝 Modify this product
+                    br
+                    br
 
         div.align-center(style='padding-right: 30px; padding-top: 30px;')
             img.shadow(style='max-width:450px;' src='/images/' + item.image_file)
