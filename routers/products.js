@@ -15,7 +15,7 @@ const get_product_by_id = require('../services/get_product_by_id');
 router.get('/products/add', pass('merchant', 'admin'), async (req, res, next) => {
     res.render('product_form', {
         headline: 'Fill form to add new product to database:',
-        post_destination: '/products/add',
+        form_destination: '/products/add',
         categories_list: await get_categories(),
         chosen_categories: [],
         user: req.user,
@@ -99,7 +99,7 @@ router.get('/products/modify', pass('merchant', 'admin'), async (req, res, next)
 
         res.render('product_form', {
             headline: 'Modify product data:',
-            post_destination: '/products/modify',
+            form_destination: '/products/modify',
             product: product,
             categories_list: categories_list,
             chosen_categories: chosen_categories,
@@ -111,5 +111,7 @@ router.get('/products/modify', pass('merchant', 'admin'), async (req, res, next)
         next(error);
     }
 });
+
+router.put('/products/modify')
 
 module.exports = router;
