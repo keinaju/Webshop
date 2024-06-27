@@ -1,7 +1,7 @@
 extends main.pug
 
 block child
-    form(action=form_destination method='post' enctype='multipart/form-data')
+    form(action=form_destination method=form_method enctype='multipart/form-data')
 
         div
             b #{headline}
@@ -9,7 +9,7 @@ block child
         div
             label(for='product_code') Product code:
             br
-            input(id='product_code' name='product_code' type='text' size='60' minlength='1' maxlength='100' value=product.code)
+            input(id='product_code' name='product_code' type='text' size='60' minlength='1' maxlength='100' value=product.code disabled=product_code_locked)
 
         div
             label(for='product_name') Name:
