@@ -3,12 +3,16 @@
     font-optical-sizing: auto;
 }
 
+.user-info {
+    color: white;
+}
+
 .top-section {
     display: grid;
     grid-template-columns: 550px 550px;
     grid-template-rows: 80px;
     justify-content: center;
-    background-color: #25e4ab;
+    background-color: black;
 }
 
 .order-section {
@@ -80,13 +84,13 @@
     border-radius: 20px;
     background-color: rgb(0, 255, 128);
     color: black;
-    transition: all 0.25s ease-out;
+    transition: all 0.2s ease-out;
 }
 
 .add-to-cart-button:hover {
     background-color: black;
     color: white;
-    transition: all 0.25s ease-out;
+    transition: all 0.2s ease-out;
 }
 
 th {
@@ -109,10 +113,12 @@ a {
     color: blue;
     text-decoration: none;
     cursor: pointer;
+    transition: all 0.2s ease-out;
 }
 
 a:hover {
     color: magenta;
+    transition: all 0.2s ease-out;
 }
 
 textarea {
