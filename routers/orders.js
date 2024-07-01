@@ -5,6 +5,9 @@ const get_orders_by_status = require('../services/get_orders_by_status');
 const set_order_status = require('../services/set_order_status');
 const body_parser = require('body-parser');
 const get_orders_count_by_status = require('../services/get_orders_count_by_status');
+const { body } = require('express-validator');
+const handle_validation_result = require('../services/handle_validation_result');
+const get_order_by_id = require('../services/get_order_by_id');
 
 router.get('/orders', pass('merchant', 'admin'), async (req, res, next) => {
     try {
@@ -28,17 +31,31 @@ router.get('/orders', pass('merchant', 'admin'), async (req, res, next) => {
     }
 });
 
-router.put('/orders/update', pass('merchant', 'admin'), body_parser.json(), async (req, res, next) => {
-
-    try {
-        if (!req.body.order_id || !req.body.new_status) throw new Error('Request doesn\'t have required data.');
-        await set_order_status(req.body.order_id, req.body.new_status);
-        return res.json({ message: `Order ID ${req.body.order_id} was updated to ${req.body.new_status}.` });
+router.put('/orders/update',
+    pass('merchant', 'admin'),
+    body_parser.json(),
+    body('order_id')
+        .notEmpty()
+        .withMessage('Order id missing.')
+        .custom(async order_id => {
+            const order = await get_order_by_id(order_id);
+            if (order) return true;
+            else throw new Error('Order doesn\'t exist.');
+        }),
+    body('new_status')
+        .notEmpty()
+        .withMessage('Status missing.'),
+    handle_validation_result,
+    async (req, res, next) => {
+        try {
+            await set_order_status(req.body.order_id, req.body.new_status);
+            return res.json({ message: `Order ID ${req.body.order_id} was updated to ${req.body.new_status}.` });
+        }
+        catch (error) {
+            console.log('Error in order status update.', error.message);
+            next(error);
+        }
     }
-    catch (error) {
-        console.log('Error in order status update.', error.message);
-        next(error);
-    }
-});
+);
 
 module.exports = router;
