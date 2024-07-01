@@ -47,26 +47,31 @@ const validation_chain = [
         .withMessage('Max length is 100 characters.'),
 ];
 
-router.post('/users/add', multer_parser.none(), validation_chain, handle_validation_result, async function (req, res, next) {
-    const { email, password, first_name, last_name, role = 'customer' } = req.body;
-    try {
-        bcrypt.hash(password, 10, async (error, hashed_password) => {
-            if (error)
-                next(error);
-            try {
-                await add_user(email, hashed_password, first_name, last_name, role);
-                res.send('User registered successfully.');
-            }
-            catch (error) {
-                console.error('Error in user registration.', error.message);
-                next(error);
-            }
-        });
+router.post('/users/add',
+    multer_parser.none(),
+    validation_chain,
+    handle_validation_result,
+    async function (req, res, next) {
+        const { email, password, first_name, last_name, role = 'customer' } = req.body;
+        try {
+            bcrypt.hash(password, 10, async (error, hashed_password) => {
+                if (error)
+                    next(error);
+                try {
+                    await add_user(email, hashed_password, first_name, last_name, role);
+                    res.send('User registered successfully.');
+                }
+                catch (error) {
+                    console.error('Error in user registration.', error.message);
+                    next(error);
+                }
+            });
+        }
+        catch (error) {
+            console.error('Error in user registration.', error.message);
+            next(error);
+        }
     }
-    catch (error) {
-        console.error('Error in user registration.', error.message);
-        next(error);
-    }
-});
+);
 
 module.exports = router;
