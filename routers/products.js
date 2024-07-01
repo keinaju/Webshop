@@ -13,6 +13,8 @@ const get_product_by_id = require('../services/get_product_by_id');
 const update_product = require('../services/update_product');
 const update_product_image = require('../services/update_product_image');
 const delete_category_links = require('../services/delete_category_links');
+const handle_validation_result = require('../services/handle_validation_result');
+const { body, query } = require('express-validator');
 
 router.get('/products/add', pass('merchant', 'admin'), async (req, res, next) => {
     try {
@@ -33,32 +35,49 @@ router.get('/products/add', pass('merchant', 'admin'), async (req, res, next) =>
     }
 });
 
-router.post('/products/add', pass('merchant', 'admin'), upload_file.single('image'), async function (req, res, next) {
-    let { product_code, product_name, description, price, manufacturer, country_of_origin, release_date, lead_time_workdays, notes } = req.body;
-    if (product_code == '') product_code = Date.now();
+router.post('/products/add',
+    pass('merchant', 'admin'),
+    upload_file.single('image'),
+    body('product_name').notEmpty().withMessage('Product name missing.'),
+    body('price').isNumeric().withMessage('Invalid price.'),
+    handle_validation_result,
+    async function (req, res, next) {
+        let {
+            product_code,
+            product_name,
+            description,
+            price,
+            manufacturer,
+            country_of_origin,
+            release_date,
+            lead_time_workdays,
+            notes
+        } = req.body;
+        if (product_code == '') product_code = Date.now();
 
-    let filename = null;
-    if (req.file) filename = req.file.filename;
+        let filename = null;
+        if (req.file) filename = req.file.filename;
 
-    try {
-        await add_product(product_code, price, product_name, description, filename, manufacturer, country_of_origin, release_date, lead_time_workdays, notes);
+        try {
+            await add_product(product_code, price, product_name, description, filename, manufacturer, country_of_origin, release_date, lead_time_workdays, notes);
 
-        if (req.body.categories) {
-            let categories;
-            //req.body provides multiple categories as array, but one category as string
-            //Array must be guaranteed when category is a single string:
-            if (req.body.categories instanceof Array) categories = req.body.categories;
-            else categories = [req.body.categories];
-            await add_category_links(product_code, categories);
+            if (req.body.categories) {
+                let categories;
+                //req.body provides multiple categories as array, but one category as string
+                //Array must be guaranteed when category is a single string:
+                if (req.body.categories instanceof Array) categories = req.body.categories;
+                else categories = [req.body.categories];
+                await add_category_links(product_code, categories);
+            }
+
+            res.send('Product was uploaded successfully.');
         }
-
-        res.send('Product was uploaded successfully.');
+        catch (error) {
+            console.error('Error in product addition.', error.message);
+            next(error);
+        }
     }
-    catch (error) {
-        console.error('Error in product addition.', error.message);
-        next(error);
-    }
-});
+);
 
 router.get('/products', async function (req, res, next) {
     const page = Number(req.query.page) || 0;
@@ -93,64 +112,96 @@ router.get('/products', async function (req, res, next) {
     }
 });
 
-router.get('/products/modify', pass('merchant', 'admin'), async (req, res, next) => {
-    try {
-        if (!req.query.code) return res.send('Missing product code.');
-        let [product, categories_list, chosen_categories] = await Promise.all([
-            get_product_by_id(req.query.code),
-            get_categories(),
-            get_categories_by_id(req.query.code)
-        ]);
-        //Ensure correct format of categories for view engine
-        chosen_categories = chosen_categories.map(element => element.category.toString());
-        //Ensure correct date format for view engine
-        if (product.released) product.released = get_date_yyyy_mm_dd(product.released);
+router.get('/products/modify',
+    pass('merchant', 'admin'),
+    query('code')
+        .notEmpty()
+        .withMessage('Missing product code.')
+        .custom(async product_code => {
+            const product = await get_product_by_id(product_code);
+            if (product) return true;
+            else throw new Error('Product doesn\'t exist.');
+        }),
+    handle_validation_result,
+    async (req, res, next) => {
+        try {
+            if (!req.query.code) return res.send('Missing product code.');
+            let [product, categories_list, chosen_categories] = await Promise.all([
+                get_product_by_id(req.query.code),
+                get_categories(),
+                get_categories_by_id(req.query.code)
+            ]);
+            //Ensure correct format of categories for view engine
+            chosen_categories = chosen_categories.map(element => element.category.toString());
+            //Ensure correct date format for view engine
+            if (product.released) product.released = get_date_yyyy_mm_dd(product.released);
 
-        res.render('product_form', {
-            form_method: 'post',
-            headline: 'Modify product data:',
-            form_destination: '/products/modify?code=' + req.query.code,
-            product: product,
-            categories_list: categories_list,
-            chosen_categories: chosen_categories,
-            product_code_locked: true,
-            user: req.user,
-        });
-    }
-    catch (error) {
-        console.log('Error in GET /products/modify', error.message);
-        next(error);
-    }
-});
-
-router.post('/products/modify', pass('merchant', 'admin'), upload_file.single('image'), async (req, res, next) => {
-    try {
-        if (!req.query.code) throw new Error('Product code is missing.');
-        const queried_product_code = req.query.code;
-        let { product_name, description, price, manufacturer, country_of_origin, release_date, lead_time_workdays, notes } = req.body;
-
-        let filename = null;
-        if (req.file) filename = req.file.filename;
-
-        await update_product(queried_product_code, price, product_name, description, manufacturer, country_of_origin, release_date, lead_time_workdays, notes);
-        if (filename) await update_product_image(queried_product_code, filename);
-
-        if (req.body.categories) {
-            let categories;
-            //req.body provides multiple categories as array, but one category as string
-            //Array must be guaranteed when category is a single string:
-            if (req.body.categories instanceof Array) categories = req.body.categories;
-            else categories = [req.body.categories];
-            await delete_category_links(queried_product_code);
-            await add_category_links(queried_product_code, categories);
+            res.render('product_form', {
+                form_method: 'post',
+                headline: 'Modify product data:',
+                form_destination: '/products/modify?code=' + req.query.code,
+                product: product,
+                categories_list: categories_list,
+                chosen_categories: chosen_categories,
+                product_code_locked: true,
+                user: req.user,
+            });
         }
+        catch (error) {
+            console.log('Error in GET /products/modify', error.message);
+            next(error);
+        }
+    }
+);
 
-        res.send('Product was updated successfully.');
+router.post('/products/modify',
+    pass('merchant', 'admin'),
+    upload_file.single('image'),
+    query('code')
+        .notEmpty().withMessage('Product code is missing.')
+        .custom(async product_code => {
+            const product = await get_product_by_id(product_code);
+            if (product) return true;
+            else throw new Error('Product doesn\'t exist.');
+        }),
+    handle_validation_result,
+    async (req, res, next) => {
+        try {
+            const queried_product_code = req.query.code;
+            let {
+                product_name,
+                description,
+                price,
+                manufacturer,
+                country_of_origin,
+                release_date,
+                lead_time_workdays,
+                notes
+            } = req.body;
+
+            let filename = null;
+            if (req.file) filename = req.file.filename;
+
+            await update_product(queried_product_code, price, product_name, description, manufacturer, country_of_origin, release_date, lead_time_workdays, notes);
+            if (filename) await update_product_image(queried_product_code, filename);
+
+            if (req.body.categories) {
+                let categories;
+                //req.body provides multiple categories as array, but one category as string
+                //Array must be guaranteed when category is a single string:
+                if (req.body.categories instanceof Array) categories = req.body.categories;
+                else categories = [req.body.categories];
+                await delete_category_links(queried_product_code);
+                await add_category_links(queried_product_code, categories);
+            }
+
+            res.send('Product was updated successfully.');
+        }
+        catch (error) {
+            console.error('Error in product addition.', error.message);
+            next(error);
+        }
     }
-    catch (error) {
-        console.error('Error in product addition.', error.message);
-        next(error);
-    }
-});
+);
 
 module.exports = router;
