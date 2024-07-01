@@ -36,8 +36,6 @@ router.get('/order', pass('customer', 'merchant', 'admin'), async (req, res, nex
 });
 
 router.post('/order', pass('customer', 'merchant', 'admin'), multer_parser.none(), async (req, res) => {
-    //req.body
-
     const ordered_products = JSON.parse(req.body.products_as_json);
     try {
         await Promise.all(
