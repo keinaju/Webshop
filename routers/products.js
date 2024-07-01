@@ -15,16 +15,22 @@ const update_product_image = require('../services/update_product_image');
 const delete_category_links = require('../services/delete_category_links');
 
 router.get('/products/add', pass('merchant', 'admin'), async (req, res, next) => {
-    res.render('product_form', {
-        form_method: 'post',
-        headline: 'Fill form to add new product to database:',
-        form_destination: '/products/add',
-        categories_list: await get_categories(),
-        chosen_categories: [],
-        product_code_locked: false,
-        user: req.user,
-        product: {}
-    });
+    try {
+        res.render('product_form', {
+            form_method: 'post',
+            headline: 'Fill form to add new product to database:',
+            form_destination: '/products/add',
+            categories_list: await get_categories(),
+            chosen_categories: [],
+            product_code_locked: false,
+            user: req.user,
+            product: {}
+        });
+    }
+    catch (error) {
+        console.log('Error in GET /products/add', error.message);
+        next(error);
+    }
 });
 
 router.post('/products/add', pass('merchant', 'admin'), upload_file.single('image'), async function (req, res, next) {
