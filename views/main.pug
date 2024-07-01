@@ -22,10 +22,11 @@ html
             option(value='shop') 🛍️ Shop
             option(value='signout') 🔒 Sign out
             if(user.role == 'merchant' || user.role == 'admin')
-              option(value='add_category') 📁 Add category
-              option(value='add_product') 📦 Add product
-              option(value='add_user') 👤 Add user
-              option(value='orders') 📒 Orders
+              optgroup(label='Merhant\'s options:')
+                option(value='add_category') 📁 Add category
+                option(value='add_product') 📦 Add product
+                option(value='add_user') 👤 Add user
+                option(value='orders') 📒 Orders
         else
           a(href='/login') 🔑 Sign in
     
