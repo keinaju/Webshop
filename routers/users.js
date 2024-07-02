@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const add_user = require('../services/add_user');
-const multer = require('multer');
-const multer_parser = multer();
-const bcrypt = require('bcrypt');
 const { body } = require('express-validator');
 const handle_validation_result = require('../services/handle_validation_result');
+const bcrypt = require('bcrypt');
+const multer = require('multer');
+const multer_parser = multer();
+const add_user = require('../services/add_user');
 const get_user_by_email = require('../services/get_user_by_email');
 
 router.get('/users/add', (req, res) => {
