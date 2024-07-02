@@ -1,11 +1,11 @@
+require('dotenv').config();
 const express = require('express');
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 const path = require('path');
 const session = require('express-session');
 const MemoryStore = require('memorystore')(session);
 const passport = require('passport');
-require('dotenv').config();
 
 //View engine settings
 app.set('views', './views');
