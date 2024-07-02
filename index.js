@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 const port = process.env.PORT || 3000;
+const helmet = require('helmet');
 const path = require('path');
 const session = require('express-session');
 const MemoryStore = require('memorystore')(session);
@@ -10,6 +11,8 @@ const passport = require('passport');
 //View engine settings
 app.set('views', './views');
 app.set('view engine', 'pug');
+
+app.use(helmet({ contentSecurityPolicy: false }));
 
 //Session support
 app.use(session({
