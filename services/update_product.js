@@ -10,6 +10,6 @@ module.exports = async function update_product(product) {
         product.country_of_origin || null,
         product.released || null,
         product.lead_time_workdays || null,
-        product.notes || null]
-    );
+        product.notes || null
+    ]);
 };

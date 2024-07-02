@@ -42,24 +42,24 @@ router.post('/products/add',
     body('price').isNumeric().withMessage('Invalid price.'),
     handle_validation_result,
     async function (req, res, next) {
-        let {
-            product_code,
-            product_name,
-            description,
-            price,
-            manufacturer,
-            country_of_origin,
-            release_date,
-            lead_time_workdays,
-            notes
-        } = req.body;
-        if (product_code == '') product_code = Date.now();
+        let product = {
+            code: req.body.product_code || Date.now(),
+            price: req.body.price,
+            name: req.body.product_name,
+            description: req.body.description,
+            manufacturer: req.body.manufacturer,
+            country_of_origin: req.body.country_of_origin,
+            released: req.body.release_date,
+            lead_time_workdays: req.body.lead_time_workdays,
+            notes: req.body.notes
+        };
 
-        let filename = null;
-        if (req.file) filename = req.file.filename;
+        product.image_file = null;
+        if (req.file)
+            product.image_file = req.file.filename;
 
         try {
-            await add_product(product_code, price, product_name, description, filename, manufacturer, country_of_origin, release_date, lead_time_workdays, notes);
+            await add_product(product);
 
             if (req.body.categories) {
                 let categories;
@@ -67,7 +67,7 @@ router.post('/products/add',
                 //Array must be guaranteed when category is a single string:
                 if (req.body.categories instanceof Array) categories = req.body.categories;
                 else categories = [req.body.categories];
-                await add_category_links(product_code, categories);
+                await add_category_links(product.code, categories);
             }
 
             res.send('Product was uploaded successfully.');
