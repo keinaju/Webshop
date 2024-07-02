@@ -1,6 +1,6 @@
 const config = {
   db: {
-    host: 'localhost',
+    host: process.env.DB_URL,
     database: 'webshop',
     connectTimeout: 60000,
     user: process.env.DB_USERNAME,
