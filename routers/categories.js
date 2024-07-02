@@ -17,10 +17,8 @@ router.post('/categories/add',
     handle_validation_result,
     async function (req, res, next) {
         let { category_name } = req.body;
-
         let filename = null;
         if (req.file) filename = req.file.filename;
-
         try {
             await add_category(category_name, filename);
             res.send('Category was uploaded successfully.');

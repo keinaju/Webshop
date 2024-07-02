@@ -1,12 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const body_parser = require('body-parser');
-const get_user_by_email = require('../services/get_user_by_email');
-const set_shopping_cart_by_email = require('../services/set_shopping_cart_by_email');
-const get_product_by_id = require('../services/get_product_by_id');
-const ShoppingCart = require('../types/shopping_cart');
 const { body } = require('express-validator');
 const handle_validation_result = require('../services/handle_validation_result');
+const body_parser = require('body-parser');
+const get_product_by_id = require('../services/get_product_by_id');
+const get_user_by_email = require('../services/get_user_by_email');
+const set_shopping_cart_by_email = require('../services/set_shopping_cart_by_email');
+const ShoppingCart = require('../types/shopping_cart');
 
 const validation_chain = [
     body('product_id').notEmpty().withMessage('Product id missing.'),

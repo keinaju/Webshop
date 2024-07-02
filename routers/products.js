@@ -1,20 +1,20 @@
 const express = require('express');
 const router = express.Router();
+const { body, query } = require('express-validator');
+const handle_validation_result = require('../services/handle_validation_result');
+const pass = require('../services/pass');
 const add_product = require('../services/add_product');
-const get_products = require('../services/get_products');
-const get_products_count = require('../services/get_products_count');
 const add_category_links = require('../services/add_category_links');
+const delete_category_links = require('../services/delete_category_links');
 const get_categories = require('../services/get_categories');
 const get_categories_by_id = require('../services/get_categories_by_id');
-const upload_file = require('../services/upload_file');
-const pass = require('../services/pass');
 const get_date_yyyy_mm_dd = require('../services/get_date_yyyy_mm_dd');
 const get_product_by_id = require('../services/get_product_by_id');
+const get_products = require('../services/get_products');
+const get_products_count = require('../services/get_products_count');
 const update_product = require('../services/update_product');
 const update_product_image = require('../services/update_product_image');
-const delete_category_links = require('../services/delete_category_links');
-const handle_validation_result = require('../services/handle_validation_result');
-const { body, query } = require('express-validator');
+const upload_file = require('../services/upload_file');
 
 router.get('/products/add', pass('merchant', 'admin'), async (req, res, next) => {
     try {
