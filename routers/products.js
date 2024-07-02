@@ -167,23 +167,22 @@ router.post('/products/modify',
     handle_validation_result,
     async (req, res, next) => {
         try {
-            const queried_product_code = req.query.code;
-            let {
-                product_name,
-                description,
-                price,
-                manufacturer,
-                country_of_origin,
-                release_date,
-                lead_time_workdays,
-                notes
-            } = req.body;
+            let product = {
+                code: req.query.code,
+                price: req.body.price,
+                name: req.body.product_name,
+                description: req.body.description,
+                manufacturer: req.body.manufacturer,
+                country_of_origin: req.body.country_of_origin,
+                released: req.body.release_date,
+                lead_time_workdays: req.body.lead_time_workdays,
+                notes: req.body.notes
+            };
 
-            let filename = null;
-            if (req.file) filename = req.file.filename;
+            await update_product(product);
 
-            await update_product(queried_product_code, price, product_name, description, manufacturer, country_of_origin, release_date, lead_time_workdays, notes);
-            if (filename) await update_product_image(queried_product_code, filename);
+            if (req.file)
+                await update_product_image(product.code, req.file.filename);
 
             if (req.body.categories) {
                 let categories;
@@ -191,8 +190,8 @@ router.post('/products/modify',
                 //Array must be guaranteed when category is a single string:
                 if (req.body.categories instanceof Array) categories = req.body.categories;
                 else categories = [req.body.categories];
-                await delete_category_links(queried_product_code);
-                await add_category_links(queried_product_code, categories);
+                await delete_category_links(product.code);
+                await add_category_links(product.code, categories);
             }
 
             res.send('Product was updated successfully.');
