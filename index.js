@@ -14,18 +14,14 @@ app.set('view engine', 'pug');
 //Session support
 app.use(session({
     secret: process.env.SESSION_SECRET,
-    cookie: {
-        maxAge: 86400000
-    },
-    store: new MemoryStore({
-        checkPeriod: 86400000 //expire entries in 24h
-    }),
+    cookie: { maxAge: 86400000 }, //Expire in 24 hours
+    store: new MemoryStore({ checkPeriod: 86400000 }),
     resave: false,
     saveUninitialized: false,
 }));
 app.use(passport.authenticate('session'));
 
-//Routes
+//Route modules
 app.use(
     require('./routers/categories'),
     require('./routers/default'),
