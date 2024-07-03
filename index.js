@@ -3,7 +3,6 @@ const express = require('express');
 const app = express();
 const port = process.env.PORT || 3000;
 const helmet = require('helmet');
-const path = require('path');
 const session = require('express-session');
 const MemoryStore = require('memorystore')(session);
 const passport = require('passport');
@@ -53,4 +52,5 @@ app.use((err, req, res, next) => {
 
 app.listen(port, () => {
     console.log(`Listening at port ${port}.`);
+    console.log(`Current working directory: ${__dirname}`);
 });
