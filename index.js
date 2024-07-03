@@ -52,5 +52,4 @@ app.use((err, req, res, next) => {
 
 app.listen(port, () => {
     console.log(`Listening at port ${port}.`);
-    console.log(`Current working directory: ${__dirname}`);
 });
