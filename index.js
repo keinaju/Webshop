@@ -38,9 +38,6 @@ app.use(
     require('./routers/users'),
 );
 
-//Create public/images directory if it doesn't exist
-const create_images_directory = require('./services/create_images_directory');
-create_images_directory();
 //Serve static files from public folder
 app.use(
     express.static(path.join(__dirname, 'public'))
