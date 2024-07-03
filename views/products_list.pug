@@ -31,7 +31,7 @@ block child
                             td(style='padding-right: 15px; padding-top: 5px; padding-bottom: 5px;')
                                 if item.image_file
                                     a(href=`/product?code=${item.code}`)
-                                        img.shadow(src='/images/' + item.image_file width='100%' style='border-radius: 10%;')
+                                        img.shadow(src='/' + item.image_file width='100%' style='border-radius: 10%;')
                             td
                                 a(href=`/product?code=${item.code}`): b #{item.name} 
                                 br

@@ -40,7 +40,7 @@ app.use(
 
 //Serve static files from public folder
 app.use(
-    express.static(path.join(__dirname, 'public'))
+    express.static(process.env.PUBLIC_DIRECTORY_PATH)
 );
 
 //Error handler
