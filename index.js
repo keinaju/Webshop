@@ -36,7 +36,14 @@ app.use(
     require('./routers/products'),
     require('./routers/shopping_cart'),
     require('./routers/users'),
-    express.static(path.join(__dirname, 'public')) //Serve static files from public folder
+);
+
+//Create public/images directory if it doesn't exist
+const create_images_directory = require('./services/create_images_directory');
+create_images_directory();
+//Serve static files from public folder
+app.use(
+    express.static(path.join(__dirname, 'public'))
 );
 
 //Error handler
