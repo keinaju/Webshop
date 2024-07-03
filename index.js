@@ -39,7 +39,7 @@ app.use(
 );
 
 //Serve static files from public folder
-app.use(
+app.use('/public',
     express.static(process.env.PUBLIC_DIRECTORY_PATH)
 );
 
