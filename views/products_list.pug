@@ -33,7 +33,8 @@ block child
                                     a(href=`/product?code=${item.code}`)
                                         img.shadow(src='/public/' + item.image_file width='100%' style='border-radius: 10%;')
                             td
-                                a(href=`/product?code=${item.code}`): b #{item.name} 
+                                a(href=`/product?code=${item.code}`)
+                                    |#{item.name} 
                                 br
                                 i #{item.description}
                                 br
