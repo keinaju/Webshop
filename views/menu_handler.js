@@ -20,6 +20,9 @@ async function menu_handler() {
         case 'shop':
             window.location.href = '/';
             break;
+        case 'shop_configuration':
+            window.location.href = '/shop_configuration';
+            break;
         case 'signout':
             await fetch('/logout', { method: "POST" });
             window.location.href = '/';

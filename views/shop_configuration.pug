@@ -1,0 +1,13 @@
+extends main.pug
+
+block child
+    form(action=form_destination method=form_method enctype='multipart/form-data')
+
+        div
+        label(for='logo') Logo:
+        br
+        input(type='file' accept='image/*' id='logo' name='logo')
+
+        div
+        br
+        button(type='submit') Update shop
