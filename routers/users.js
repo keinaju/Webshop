@@ -18,7 +18,10 @@ const validation_chain = [
         .isLength({ max: 100 })
         .withMessage('Max length is 100 characters.')
         .isEmail()
-        .normalizeEmail({ all_lowercase: true })
+        .normalizeEmail({
+            all_lowercase: true,
+            gmail_remove_dots: false
+        })
         //Custom validator to check if user with this email already exists
         .custom(async email => {
             const user = await get_user_by_email(email);
