@@ -28,6 +28,7 @@ app.use(
     require('./routers/categories'),
     require('./routers/default'),
     require('./routers/login'),
+    require('./routers/logo'),
     require('./routers/logout'),
     require('./routers/order'),
     require('./routers/orders'),
