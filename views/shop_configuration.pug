@@ -1,31 +1,31 @@
 extends main.pug
 
 block child
-    form(action=form_destination method=form_method enctype='multipart/form-data')
+    form.form-section(action=form_destination method=form_method enctype='multipart/form-data')
 
         div
             b Fill form to update shop settings:
 
         div
-        label(for='logo') Logo:
-        br
-        input(type='file' accept='image/*' id='logo' name='logo')
+            label(for='logo') Logo:
+            br
+            input(type='file' accept='image/*' id='logo' name='logo')
 
         div
-        label(for='business_name') Business name:
-        br
-        input(id='business_name' name='business_name' type='text' size='60' minlength='1' maxlength='100' required)
+            label(for='business_name') Business name:
+            br
+            input(id='business_name' name='business_name' type='text' size='60' minlength='1' maxlength='100' required)
 
         div
-        label(for='slogan') Slogan:
-        br
-        input(id='slogan' name='slogan' type='text' size='60' minlength='1' maxlength='100')
+            label(for='slogan') Slogan:
+            br
+            input(id='slogan' name='slogan' type='text' size='60' minlength='1' maxlength='100')
 
         div
-        label(for='main_color') Color:
-        br
-        input(id='main_color' name='main_color' type='color')
+            label(for='main_color') Color:
+            br
+            input(id='main_color' name='main_color' type='color')
 
         div
-        br
-        button(type='submit') Update shop
+            br
+            button(type='submit') Update shop

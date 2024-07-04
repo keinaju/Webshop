@@ -4,6 +4,7 @@ block child
     script
         include apply_orders_filter.js
         include set_order_status.js
+
     label(for='status_filter') Filter by status: 
     select(name='status_filter' id='status_filter' onchange='apply_orders_filter(); return false;')
         option(value='none') 
