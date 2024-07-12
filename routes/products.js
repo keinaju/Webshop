@@ -8,7 +8,6 @@ const add_product = require('../services/add_product');
 const add_category_links = require('../services/add_category_links');
 const delete_category_links = require('../services/delete_category_links');
 const get_categories = require('../services/get_categories');
-const get_categories_by_id = require('../services/get_categories_by_id');
 const get_date_yyyy_mm_dd = require('../services/get_date_yyyy_mm_dd');
 const update_product = require('../services/update_product');
 const update_product_image = require('../services/update_product_image');
@@ -127,7 +126,7 @@ router.get('/products/modify',
             let [product, categories_list, chosen_categories] = await Promise.all([
                 database.get.product(req.query.code),
                 get_categories(),
-                get_categories_by_id(req.query.code)
+                database.get.categories_by_product(req.query.code)
             ]);
             //Ensure correct format of categories for view engine
             chosen_categories = chosen_categories.map(element => element.category.toString());
