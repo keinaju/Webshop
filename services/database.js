@@ -137,6 +137,12 @@ class Database {
             return results[0];
         },
     };
+
+    static update = {
+        async order_status(id, status) {
+            return await query(`CALL set_order_status(?, ?);`, [id, status]);
+        },
+    };
 }
 
 module.exports = Database;
