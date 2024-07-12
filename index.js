@@ -23,7 +23,7 @@ app.use(session({
 }));
 app.use(passport.authenticate('session'));
 
-app.use(require('./routers/exports'));
+app.use(require('./routes/exports'));
 
 //Serve static files from public folder
 app.use('/public', express.static(process.env.PUBLIC_DIRECTORY_PATH));
