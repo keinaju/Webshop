@@ -1,6 +1,6 @@
 const express = require('express');
-const get_product_by_id = require('../services/get_product_by_id');
 const router = express.Router();
+const database = require('../services/database');
 
 router.get('/product', async (req, res, next) => {
     let modify;
@@ -20,7 +20,7 @@ router.get('/product', async (req, res, next) => {
         res.render('product_page', {
             user: req.user,
             modify: modify,
-            item: await get_product_by_id(req.query.code),
+            item: await database.get.product(req.query.code),
         });
     }
     catch (error) {

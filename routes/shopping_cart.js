@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
+const database = require('../services/database');
 const { body } = require('express-validator');
 const handle_validation_result = require('../services/handle_validation_result');
 const body_parser = require('body-parser');
-const get_product_by_id = require('../services/get_product_by_id');
 const get_user_by_email = require('../services/get_user_by_email');
 const set_shopping_cart_by_email = require('../services/set_shopping_cart_by_email');
 const ShoppingCart = require('../types/shopping_cart');
@@ -23,7 +23,7 @@ router.post('/shoppingcart/add',
 
         try {
             const [product, user] = await Promise.all([
-                get_product_by_id(req.body.product_id),
+                database.get.product(req.body.product_id),
                 get_user_by_email(req.user.email)
             ]);
             const contents = JSON.parse(user.shopping_cart);

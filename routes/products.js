@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const database = require('../services/database');
 const { body, query } = require('express-validator');
 const handle_validation_result = require('../services/handle_validation_result');
 const pass = require('../services/pass');
@@ -9,7 +10,6 @@ const delete_category_links = require('../services/delete_category_links');
 const get_categories = require('../services/get_categories');
 const get_categories_by_id = require('../services/get_categories_by_id');
 const get_date_yyyy_mm_dd = require('../services/get_date_yyyy_mm_dd');
-const get_product_by_id = require('../services/get_product_by_id');
 const get_products = require('../services/get_products');
 const get_products_count = require('../services/get_products_count');
 const update_product = require('../services/update_product');
@@ -118,7 +118,7 @@ router.get('/products/modify',
         .notEmpty()
         .withMessage('Missing product code.')
         .custom(async product_code => {
-            const product = await get_product_by_id(product_code);
+            const product = await database.get.product(product_code);
             if (product) return true;
             else throw new Error('Product doesn\'t exist.');
         }),
@@ -127,7 +127,7 @@ router.get('/products/modify',
         try {
             if (!req.query.code) return res.send('Missing product code.');
             let [product, categories_list, chosen_categories] = await Promise.all([
-                get_product_by_id(req.query.code),
+                database.get.product(req.query.code),
                 get_categories(),
                 get_categories_by_id(req.query.code)
             ]);
@@ -160,7 +160,7 @@ router.post('/products/modify',
     query('code')
         .notEmpty().withMessage('Product code is missing.')
         .custom(async product_code => {
-            const product = await get_product_by_id(product_code);
+            const product = await database.get.product(product_code);
             if (product) return true;
             else throw new Error('Product doesn\'t exist.');
         }),

@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
+const database = require('../services/database');
 const get_user_by_email = require('../services/get_user_by_email');
 const pass = require('../services/pass');
-const get_product_by_id = require('../services/get_product_by_id');
 const multer = require('multer');
 const add_order = require('../services/add_order');
 const reset_shopping_cart_by_user = require('../services/reset_shopping_cart_by_user');
@@ -16,7 +16,7 @@ router.get('/order', pass('customer', 'merchant', 'admin'), async (req, res, nex
         if (shopping_cart) {
             for (const product_in_cart of shopping_cart) {
                 total_price += product_in_cart.price_per_pc * product_in_cart.quantity;
-                const product_data = await get_product_by_id(product_in_cart.product_id);
+                const product_data = await database.get.product(product_in_cart.product_id);
                 product_in_cart.name = product_data.name;
                 product_in_cart.description = product_data.description;
                 product_in_cart.image_file = product_data.image_file;
