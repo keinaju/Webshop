@@ -6,7 +6,6 @@ const handle_validation_result = require('../services/handle_validation_result')
 const bcrypt = require('bcrypt');
 const multer = require('multer');
 const multer_parser = multer();
-const add_user = require('../services/add_user');
 
 router.get('/users/add', (req, res) => {
     res.render('add_user', { user: req.user });
@@ -61,7 +60,7 @@ router.post('/users/add',
                 if (error)
                     next(error);
                 try {
-                    await add_user(email, hashed_password, first_name, last_name, role);
+                    await database.add.user(email, hashed_password, first_name, last_name, role);
                     res.send('User registered successfully.');
                 }
                 catch (error) {

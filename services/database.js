@@ -46,6 +46,14 @@ class Database {
                 product.notes || null
             ]);
         },
+
+        //Add user
+        async user(email, password, first_name, last_name, role) {
+            return await query(
+                'CALL add_user(?, ?, ?, ?, ?);',
+                [email, password, role, first_name, last_name]
+            );
+        },
     };
 
     static delete = {
