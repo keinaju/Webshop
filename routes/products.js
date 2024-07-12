@@ -10,7 +10,6 @@ const delete_category_links = require('../services/delete_category_links');
 const get_categories = require('../services/get_categories');
 const get_categories_by_id = require('../services/get_categories_by_id');
 const get_date_yyyy_mm_dd = require('../services/get_date_yyyy_mm_dd');
-const get_products_count = require('../services/get_products_count');
 const update_product = require('../services/update_product');
 const update_product_image = require('../services/update_product_image');
 const upload_file = require('../services/upload_file');
@@ -88,7 +87,7 @@ router.get('/products', async function (req, res, next) {
         const list_length = 20;
         const [product_list, product_count, categories_list] = await Promise.all([
             database.get.products(list_length, list_length * page, chosen_categories, regex),
-            get_products_count(chosen_categories, regex),
+            database.get.products_count(chosen_categories, regex),
             get_categories(),
         ]);
         const total_of_pages = Math.ceil(product_count / list_length);
