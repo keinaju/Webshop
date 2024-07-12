@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const add_category = require('../services/add_category');
+const database = require('../services/database');
 const upload_file = require('../services/upload_file');
 const pass = require('../services/pass');
 const { body } = require('express-validator');
@@ -20,7 +20,7 @@ router.post('/categories/add',
         let filename = null;
         if (req.file) filename = req.file.filename;
         try {
-            await add_category(category_name, filename);
+            await database.add.category(category_name, filename);
             res.send('Category was uploaded successfully.');
         }
         catch (error) {

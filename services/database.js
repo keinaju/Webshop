@@ -16,6 +16,10 @@ class Database {
                 query('CALL add_category_link(?, ?);', [product_id, category_id]);
             }
         },
+
+        async category(name, image_file) {
+            return await query('CALL add_category(?, ?);', [name, image_file]);
+        },
     };
 
     static delete = {
