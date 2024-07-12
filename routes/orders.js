@@ -4,7 +4,6 @@ const database = require('../services/database');
 const pass = require('../services/pass');
 const set_order_status = require('../services/set_order_status');
 const body_parser = require('body-parser');
-const get_orders_count_by_status = require('../services/get_orders_count_by_status');
 const { body } = require('express-validator');
 const handle_validation_result = require('../services/handle_validation_result');
 
@@ -14,7 +13,7 @@ router.get('/orders', pass('merchant', 'admin'), async (req, res, next) => {
         const status = req.query.status || 'new';
         const [orders, orders_count] = await Promise.all([
             database.get.orders_by_status(status, 20, page * 20),
-            get_orders_count_by_status(status),
+            database.get.orders_count_by_status(status),
         ]);
         res.render('orders', {
             user: req.user,

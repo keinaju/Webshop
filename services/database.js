@@ -38,6 +38,14 @@ class Database {
             return results;
         },
 
+        //Get total count of orders by status
+        async orders_count_by_status(status) {
+            const [results,] = await query(
+                `CALL get_orders_count_by_status(?);`, [status]
+            );
+            return results[0].orders_count;
+        },
+
         //Get a single product by id
         async product(id) {
             const [results,] = await query(`CALL get_product_by_id(?);`, [id]);
