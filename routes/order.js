@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const database = require('../services/database');
-const get_user_by_email = require('../services/get_user_by_email');
 const pass = require('../services/pass');
 const multer = require('multer');
 const add_order = require('../services/add_order');
@@ -10,7 +9,7 @@ const multer_parser = multer();
 
 router.get('/order', pass('customer', 'merchant', 'admin'), async (req, res, next) => {
     try {
-        const user_data = await get_user_by_email(req.user.email);
+        const user_data = await database.get.user(req.user.email);
         let shopping_cart = JSON.parse(user_data.shopping_cart);
         let total_price = 0;
         if (shopping_cart) {

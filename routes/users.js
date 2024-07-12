@@ -1,12 +1,12 @@
 const express = require('express');
 const router = express.Router();
+const database = require('../services/database');
 const { body } = require('express-validator');
 const handle_validation_result = require('../services/handle_validation_result');
 const bcrypt = require('bcrypt');
 const multer = require('multer');
 const multer_parser = multer();
 const add_user = require('../services/add_user');
-const get_user_by_email = require('../services/get_user_by_email');
 
 router.get('/users/add', (req, res) => {
     res.render('add_user', { user: req.user });
@@ -24,7 +24,7 @@ const validation_chain = [
         })
         //Custom validator to check if user with this email already exists
         .custom(async email => {
-            const user = await get_user_by_email(email);
+            const user = await database.get.user(email);
             if (user)
                 throw new Error('Email is in use.');
             else

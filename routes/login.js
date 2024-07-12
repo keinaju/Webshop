@@ -1,15 +1,15 @@
 const express = require('express');
 const router = express.Router();
+const database = require('../services/database');
 const multer = require('multer');
 const multer_parser = multer();
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
-const get_user_by_email = require('../services/get_user_by_email');
 const bcrypt = require('bcrypt');
 
 async function verify(email, password, cb) {
     try {
-        const user = await get_user_by_email(email);
+        const user = await database.get.user(email);
 
         if (!user)
             return cb(null, false, { message: 'User doesn\'t exist.' });

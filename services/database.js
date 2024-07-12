@@ -69,6 +69,14 @@ class Database {
             );
             return results[0].product_count;
         },
+
+        //Get user
+        async user(email) {
+            const [results,] = await query(
+                `CALL get_user_by_email(?);`, [email]
+            );
+            return results[0];
+        },
     };
 }
 
