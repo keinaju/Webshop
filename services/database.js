@@ -11,22 +11,41 @@ async function query(sql, params) {
 class Database {
 
     static add = {
+        //Add SQL record that links product to category
         async category_links(product_id, categories) {
             for (const category_id of categories) {
                 query('CALL add_category_link(?, ?);', [product_id, category_id]);
             }
         },
 
+        //Add category
         async category(name, image_file) {
             return await query('CALL add_category(?, ?);', [name, image_file]);
         },
 
+        //Add order with status 'new'
         async order(product, quantity, price_per_pc, instructions, customer) {
             return await query(
                 'CALL add_order(?, ?, ?, ?, ?, ?);',
                 [product, quantity, price_per_pc, 'new', instructions, customer]
             );
-        }
+        },
+
+        //Add product
+        async product(product) {
+            return await query('CALL add_product(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);', [
+                product.code,
+                product.price,
+                product.name,
+                product.description || null,
+                product.image_file || null,
+                product.manufacturer || null,
+                product.country_of_origin || null,
+                product.released || null,
+                product.lead_time_workdays || null,
+                product.notes || null
+            ]);
+        },
     };
 
     static delete = {

@@ -4,7 +4,6 @@ const database = require('../services/database');
 const { body, query } = require('express-validator');
 const handle_validation_result = require('../services/handle_validation_result');
 const pass = require('../services/pass');
-const add_product = require('../services/add_product');
 const get_date_yyyy_mm_dd = require('../services/get_date_yyyy_mm_dd');
 const update_product = require('../services/update_product');
 const update_product_image = require('../services/update_product_image');
@@ -53,7 +52,7 @@ router.post('/products/add',
             product.image_file = req.file.filename;
 
         try {
-            await add_product(product);
+            await database.add.product(product);
 
             if (req.body.categories) {
                 let categories;
