@@ -142,6 +142,10 @@ class Database {
         async order_status(id, status) {
             return await query(`CALL set_order_status(?, ?);`, [id, status]);
         },
+
+        async shopping_cart(user_email, contents) {
+            return await query(`CALL set_shopping_cart_by_email(?, ?);`, [user_email, contents]);
+        },
     };
 }
 

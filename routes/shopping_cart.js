@@ -4,7 +4,6 @@ const database = require('../services/database');
 const { body } = require('express-validator');
 const handle_validation_result = require('../services/handle_validation_result');
 const body_parser = require('body-parser');
-const set_shopping_cart_by_email = require('../services/set_shopping_cart_by_email');
 const ShoppingCart = require('../types/shopping_cart');
 
 const validation_chain = [
@@ -28,7 +27,7 @@ router.post('/shoppingcart/add',
             const contents = JSON.parse(user.shopping_cart);
             const cart = new ShoppingCart(contents || []);
             cart.add_products(req.body.product_id, req.body.quantity, product.price);
-            await set_shopping_cart_by_email(req.user.email, cart.get_contents_json());
+            await database.update.shopping_cart(req.user.email, cart.get_contents_json());
             return res.json({ message: 'Product added to cart.\nCart now has ' + cart.get_short_info() });
         }
         catch (error) {
