@@ -1,10 +1,10 @@
 const express = require('express');
-const get_webshop_configuration = require('../services/get_webshop_configuration');
 const router = express.Router();
+const database = require('../services/database');
 
 router.get('/logo', async (req, res, next) => {
     try {
-        const shop_configuration = await get_webshop_configuration();
+        const shop_configuration = await database.get.webshop();
         if (shop_configuration) {
             res.sendFile(`${process.env.PUBLIC_DIRECTORY_PATH}/${shop_configuration.logo_file}`, (error) => {
                 if (error) {

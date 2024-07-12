@@ -77,6 +77,12 @@ class Database {
             );
             return results[0];
         },
+
+        //Get webshop configuration
+        async webshop() {
+            const [results,] = await query(`CALL get_webshop_configuration();`);
+            return results[0];
+        },
     };
 }
 
