@@ -16,9 +16,16 @@ class Database {
             return results;
         },
 
+        //Get all categories
         async categories() {
             const [results,] = await query('CALL get_categories();');
             return results;
+        },
+
+        //Get a single order by id
+        async order(id) {
+            const [results,] = await query(`CALL get_order_by_id(?);`, [id]);
+            return results[0];
         },
 
         //Get a single product by id

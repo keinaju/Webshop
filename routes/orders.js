@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const database = require('../services/database');
 const pass = require('../services/pass');
 const get_orders_by_status = require('../services/get_orders_by_status');
 const set_order_status = require('../services/set_order_status');
@@ -7,7 +8,6 @@ const body_parser = require('body-parser');
 const get_orders_count_by_status = require('../services/get_orders_count_by_status');
 const { body } = require('express-validator');
 const handle_validation_result = require('../services/handle_validation_result');
-const get_order_by_id = require('../services/get_order_by_id');
 
 router.get('/orders', pass('merchant', 'admin'), async (req, res, next) => {
     try {
@@ -38,7 +38,7 @@ router.put('/orders/update',
         .notEmpty()
         .withMessage('Order id missing.')
         .custom(async order_id => {
-            const order = await get_order_by_id(order_id);
+            const order = await database.get.order(order_id);
             if (order) return true;
             else throw new Error('Order doesn\'t exist.');
         }),
