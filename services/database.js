@@ -10,9 +10,19 @@ async function query(sql, params) {
 
 class Database {
     static get = {
+        //Get a single product by id
         async product(id) {
             const [results,] = await query(`CALL get_product_by_id(?);`, [id]);
             return results[0];
+        },
+
+        //Get multiple products by categories and matching regular expression
+        async products(limit, offset, chosen_categories, regex) {
+            const [results,] = await query(
+                `CALL get_products(?, ?, ${chosen_categories ? 'FALSE' : 'TRUE'}, ?, ?);`,
+                [limit, offset, chosen_categories || null, regex]
+            );
+            return results;
         }
     };
 }
