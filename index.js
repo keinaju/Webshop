@@ -23,26 +23,10 @@ app.use(session({
 }));
 app.use(passport.authenticate('session'));
 
-//Route modules
-app.use(
-    require('./routers/categories'),
-    require('./routers/default'),
-    require('./routers/login'),
-    require('./routers/logo'),
-    require('./routers/logout'),
-    require('./routers/order'),
-    require('./routers/orders'),
-    require('./routers/product'),
-    require('./routers/products'),
-    require('./routers/shop_configuration'),
-    require('./routers/shopping_cart'),
-    require('./routers/users'),
-);
+app.use(require('./routers/exports'));
 
 //Serve static files from public folder
-app.use('/public',
-    express.static(process.env.PUBLIC_DIRECTORY_PATH)
-);
+app.use('/public', express.static(process.env.PUBLIC_DIRECTORY_PATH));
 
 //Error handler
 app.use((err, req, res, next) => {
