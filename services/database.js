@@ -10,6 +10,13 @@ async function query(sql, params) {
 
 class Database {
 
+    static delete = {
+        //Delete all category links by product
+        async category_links(id) {
+            return await query('CALL delete_category_links(?);', [id]);
+        }
+    };
+
     static get = {
         //Get category data by product id
         async categories_by_product(id) {
