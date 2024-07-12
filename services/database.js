@@ -10,6 +10,14 @@ async function query(sql, params) {
 
 class Database {
 
+    static add = {
+        async category_links(product_id, categories) {
+            for (const category_id of categories) {
+                query('CALL add_category_link(?, ?);', [product_id, category_id]);
+            }
+        },
+    };
+
     static delete = {
         //Delete all category links by product
         async category_links(id) {

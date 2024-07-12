@@ -5,7 +5,6 @@ const { body, query } = require('express-validator');
 const handle_validation_result = require('../services/handle_validation_result');
 const pass = require('../services/pass');
 const add_product = require('../services/add_product');
-const add_category_links = require('../services/add_category_links');
 const get_date_yyyy_mm_dd = require('../services/get_date_yyyy_mm_dd');
 const update_product = require('../services/update_product');
 const update_product_image = require('../services/update_product_image');
@@ -62,7 +61,7 @@ router.post('/products/add',
                 //Array must be guaranteed when category is a single string:
                 if (req.body.categories instanceof Array) categories = req.body.categories;
                 else categories = [req.body.categories];
-                await add_category_links(product.code, categories);
+                await database.add.category_links(product.code, categories);
             }
 
             res.send('Product was uploaded successfully.');
@@ -186,7 +185,7 @@ router.post('/products/modify',
                 if (req.body.categories instanceof Array) categories = req.body.categories;
                 else categories = [req.body.categories];
                 await database.delete.category_links(product.code);
-                await add_category_links(product.code, categories);
+                await database.add.category_links(product.code, categories);
             }
 
             res.send('Product was updated successfully.');
