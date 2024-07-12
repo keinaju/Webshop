@@ -146,6 +146,10 @@ class Database {
         async shopping_cart(user_email, contents) {
             return await query(`CALL set_shopping_cart_by_email(?, ?);`, [user_email, contents]);
         },
+
+        async shopping_cart_to_empty(user_id) {
+            return await query('CALL reset_shopping_cart_by_user(?);', [user_id]);
+        },
     };
 }
 

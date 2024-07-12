@@ -3,7 +3,6 @@ const router = express.Router();
 const database = require('../services/database');
 const pass = require('../services/pass');
 const multer = require('multer');
-const reset_shopping_cart_by_user = require('../services/reset_shopping_cart_by_user');
 const multer_parser = multer();
 
 router.get('/order', pass('customer', 'merchant', 'admin'), async (req, res, next) => {
@@ -33,7 +32,7 @@ router.get('/order', pass('customer', 'merchant', 'admin'), async (req, res, nex
     }
 });
 
-router.post('/order', pass('customer', 'merchant', 'admin'), multer_parser.none(), async (req, res) => {
+router.post('/order', pass('customer', 'merchant', 'admin'), multer_parser.none(), async (req, res, next) => {
     const ordered_products = JSON.parse(req.body.products_as_json);
     try {
         await Promise.all(
@@ -43,7 +42,7 @@ router.post('/order', pass('customer', 'merchant', 'admin'), multer_parser.none(
                 database.add.order(product_id, quantity, price_per_pc, req.body.instructions, req.user.id);
             })
         );
-        await reset_shopping_cart_by_user(req.user.id);
+        await database.update.shopping_cart_to_empty(req.user.id);
         res.send('Order was uploaded successfully.');
     }
     catch (error) {
