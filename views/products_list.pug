@@ -3,8 +3,9 @@ extends main.pug
 block child
     script
         include post_json.js
-    
+
     div.product-section
+
         div.sidebar
             |Search:
             br
@@ -16,6 +17,7 @@ block child
             script
                 include apply_products_filter.js
             div.align-center: a.rounded-button(onclick='apply_products_filter(); return false;') Apply filters
+
         div.product-list
             include page_selector.pug
             
