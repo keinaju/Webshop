@@ -143,6 +143,20 @@ class Database {
             return await query(`CALL set_order_status(?, ?);`, [id, status]);
         },
 
+        async product(product) {
+            return await query('CALL update_product(?, ?, ?, ?, ?, ?, ?, ?, ?);', [
+                product.code,
+                product.price,
+                product.name,
+                product.description || null,
+                product.manufacturer || null,
+                product.country_of_origin || null,
+                product.released || null,
+                product.lead_time_workdays || null,
+                product.notes || null
+            ]);
+        },
+
         async product_image(id, image_file) {
             return await query('CALL update_product_image(?, ?);', [id, image_file]);
         },
