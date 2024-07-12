@@ -3,7 +3,6 @@ const router = express.Router();
 const database = require('../services/database');
 const pass = require('../services/pass');
 const multer = require('multer');
-const add_order = require('../services/add_order');
 const reset_shopping_cart_by_user = require('../services/reset_shopping_cart_by_user');
 const multer_parser = multer();
 
@@ -41,7 +40,7 @@ router.post('/order', pass('customer', 'merchant', 'admin'), multer_parser.none(
             //Loop each ordered product, and generate a promise with database upload
             ordered_products.map(element => {
                 const { product_id, quantity, price_per_pc } = element;
-                add_order(product_id, quantity, price_per_pc, req.body.instructions, req.user.id);
+                database.add.order(product_id, quantity, price_per_pc, req.body.instructions, req.user.id);
             })
         );
         await reset_shopping_cart_by_user(req.user.id);
