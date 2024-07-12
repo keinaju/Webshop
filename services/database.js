@@ -16,6 +16,11 @@ class Database {
             return results;
         },
 
+        async categories() {
+            const [results,] = await query('CALL get_categories();');
+            return results;
+        },
+
         //Get a single product by id
         async product(id) {
             const [results,] = await query(`CALL get_product_by_id(?);`, [id]);

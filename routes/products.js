@@ -7,7 +7,6 @@ const pass = require('../services/pass');
 const add_product = require('../services/add_product');
 const add_category_links = require('../services/add_category_links');
 const delete_category_links = require('../services/delete_category_links');
-const get_categories = require('../services/get_categories');
 const get_date_yyyy_mm_dd = require('../services/get_date_yyyy_mm_dd');
 const update_product = require('../services/update_product');
 const update_product_image = require('../services/update_product_image');
@@ -19,7 +18,7 @@ router.get('/products/add', pass('merchant', 'admin'), async (req, res, next) =>
             form_method: 'post',
             headline: 'Fill form to add new product to database:',
             form_destination: '/products/add',
-            categories_list: await get_categories(),
+            categories_list: await database.get.categories(),
             chosen_categories: [],
             product_code_locked: false,
             user: req.user,
@@ -87,7 +86,7 @@ router.get('/products', async function (req, res, next) {
         const [product_list, product_count, categories_list] = await Promise.all([
             database.get.products(list_length, list_length * page, chosen_categories, regex),
             database.get.products_count(chosen_categories, regex),
-            get_categories(),
+            database.get.categories(),
         ]);
         const total_of_pages = Math.ceil(product_count / list_length);
         res.render('products_list', {
@@ -125,7 +124,7 @@ router.get('/products/modify',
             if (!req.query.code) return res.send('Missing product code.');
             let [product, categories_list, chosen_categories] = await Promise.all([
                 database.get.product(req.query.code),
-                get_categories(),
+                database.get.categories(),
                 database.get.categories_by_product(req.query.code)
             ]);
             //Ensure correct format of categories for view engine
