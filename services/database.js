@@ -9,6 +9,7 @@ async function query(sql, params) {
 }
 
 class Database {
+
     static get = {
         //Get category data by product id
         async categories_by_product(id) {
@@ -26,6 +27,15 @@ class Database {
         async order(id) {
             const [results,] = await query(`CALL get_order_by_id(?);`, [id]);
             return results[0];
+        },
+
+        //Get multiple orders by status
+        async orders_by_status(status, limit, offset) {
+            const [results,] = await query(
+                `CALL get_orders_by_status(?, ?, ?);`,
+                [status, limit, offset]
+            );
+            return results;
         },
 
         //Get a single product by id

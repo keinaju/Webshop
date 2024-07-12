@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const database = require('../services/database');
 const pass = require('../services/pass');
-const get_orders_by_status = require('../services/get_orders_by_status');
 const set_order_status = require('../services/set_order_status');
 const body_parser = require('body-parser');
 const get_orders_count_by_status = require('../services/get_orders_count_by_status');
@@ -14,7 +13,7 @@ router.get('/orders', pass('merchant', 'admin'), async (req, res, next) => {
         const page = req.query.page || 0;
         const status = req.query.status || 'new';
         const [orders, orders_count] = await Promise.all([
-            get_orders_by_status(status, 20, page * 20),
+            database.get.orders_by_status(status, 20, page * 20),
             get_orders_count_by_status(status),
         ]);
         res.render('orders', {
