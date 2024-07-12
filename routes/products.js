@@ -6,7 +6,6 @@ const handle_validation_result = require('../services/handle_validation_result')
 const pass = require('../services/pass');
 const get_date_yyyy_mm_dd = require('../services/get_date_yyyy_mm_dd');
 const update_product = require('../services/update_product');
-const update_product_image = require('../services/update_product_image');
 const upload_file = require('../services/upload_file');
 
 router.get('/products/add', pass('merchant', 'admin'), async (req, res, next) => {
@@ -175,7 +174,7 @@ router.post('/products/modify',
             await update_product(product);
 
             if (req.file)
-                await update_product_image(product.code, req.file.filename);
+                await database.update.product_image(product.code, req.file.filename);
 
             if (req.body.categories) {
                 let categories;
