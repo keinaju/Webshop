@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
+const database = require('../services/database');
 const pass = require('../services/pass');
-const update_shop_configuration = require('../services/update_shop_configuration');
 const upload_file = require('../services/upload_file');
 
 router.get('/shop_configuration', pass('merchant', 'admin'), (req, res, next) => {
@@ -23,7 +23,7 @@ router.post('/shop_configuration', pass('merchant', 'admin'), upload_file.single
             slogan: req.body.slogan,
             main_color: req.body.main_color,
         };
-        await update_shop_configuration(config);
+        await database.update.webshop(config);
         res.send('Shop was updated.');
     }
     catch (error) {

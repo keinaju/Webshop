@@ -168,6 +168,15 @@ class Database {
         async shopping_cart_to_empty(user_id) {
             return await query('CALL reset_shopping_cart_by_user(?);', [user_id]);
         },
+
+        async webshop(config) {
+            return await query('CALL update_shop_configuration(?, ?, ?, ?);', [
+                config.logo_file || null,
+                config.business_name || null,
+                config.slogan || null,
+                config.main_color || null,
+            ]);
+        },
     };
 }
 
