@@ -1,7 +1,6 @@
 require('dotenv').config();
 const express = require('express');
 const app = express();
-const port = process.env.PORT ?? 3000;
 const helmet = require('helmet');
 const session = require('express-session');
 const MemoryStore = require('memorystore')(session);
@@ -28,14 +27,8 @@ app.use(require('./routes/exports'));
 //Serve static files from public folder
 app.use('/public', express.static(process.env.PUBLIC_DIRECTORY_PATH));
 
-//Error handler
-app.use((err, req, res, next) => {
-    const statusCode = err.statusCode || 500;
-    console.error(err.message, err.stack);
-    res.status(statusCode).json({ message: err.message });
-    return;
-});
+app.use(require('./error_handler'));
 
-app.listen(port, () => {
+app.listen(process.env.PORT, () => {
     console.log(`Listening at port ${port}.`);
 });
