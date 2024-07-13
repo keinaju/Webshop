@@ -1,9 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const database = require('../services/database');
-const body_parser = require('body-parser');
-
 const validations = require('./validations/validations');
+const body_parser = require('body-parser');
 
 router.get('/orders', validations.orders.page, async (req, res, next) => {
     try {

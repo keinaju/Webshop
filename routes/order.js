@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const database = require('../services/database');
+const validations = require('./validations/validations');
 const multer = require('multer');
 const multer_parser = multer();
-const validations = require('./validations/validations');
 
 router.get('/order', validations.order.page, async (req, res, next) => {
     try {

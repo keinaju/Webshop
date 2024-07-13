@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const database = require('../services/database');
 const validations = require('./validations/validations');
-const get_date_yyyy_mm_dd = require('../services/get_date_yyyy_mm_dd');
+const get_short_date = require('../utilities/get_short_date');
 const upload_file = require('../services/upload_file');
 
 router.get('/products/add', validations.products.add_page, async (req, res, next) => {
@@ -110,7 +110,7 @@ router.get('/products/modify',
             //Ensure correct format of categories for view engine
             chosen_categories = chosen_categories.map(element => element.category.toString());
             //Ensure correct date format for view engine
-            if (product.released) product.released = get_date_yyyy_mm_dd(product.released);
+            if (product.released) product.released = get_short_date(product.released);
 
             res.render('product_form', {
                 form_method: 'post',

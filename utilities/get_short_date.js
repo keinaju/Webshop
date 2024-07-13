@@ -1,4 +1,4 @@
-module.exports = function get_date_yyyy_mm_dd(date_object) {
+module.exports = function get_short_date(date_object) {
     let year = date_object.getFullYear();
 
     let month = date_object.getMonth() + 1;
