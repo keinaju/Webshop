@@ -1,13 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const database = require('../services/database');
-const { body, query } = require('express-validator');
-const handle_validation_result = require('../services/handle_validation_result');
-const pass = require('../services/pass');
+const validations = require('./validations/validations');
 const get_date_yyyy_mm_dd = require('../services/get_date_yyyy_mm_dd');
 const upload_file = require('../services/upload_file');
 
-router.get('/products/add', pass('merchant', 'admin'), async (req, res, next) => {
+router.get('/products/add', validations.products.add_page, async (req, res, next) => {
     try {
         res.render('product_form', {
             form_method: 'post',
@@ -27,11 +25,8 @@ router.get('/products/add', pass('merchant', 'admin'), async (req, res, next) =>
 });
 
 router.post('/products/add',
-    pass('merchant', 'admin'),
     upload_file.single('image'),
-    body('product_name').notEmpty().withMessage('Product name missing.'),
-    body('price').isNumeric().withMessage('Invalid price.'),
-    handle_validation_result,
+    validations.products.add_post,
     async function (req, res, next) {
         let product = {
             code: req.body.product_code || Date.now(),
@@ -104,19 +99,9 @@ router.get('/products', async function (req, res, next) {
 });
 
 router.get('/products/modify',
-    pass('merchant', 'admin'),
-    query('code')
-        .notEmpty()
-        .withMessage('Missing product code.')
-        .custom(async product_code => {
-            const product = await database.get.product(product_code);
-            if (product) return true;
-            else throw new Error('Product doesn\'t exist.');
-        }),
-    handle_validation_result,
+    validations.products.modify_page,
     async (req, res, next) => {
         try {
-            if (!req.query.code) return res.send('Missing product code.');
             let [product, categories_list, chosen_categories] = await Promise.all([
                 database.get.product(req.query.code),
                 database.get.categories(),
@@ -146,16 +131,8 @@ router.get('/products/modify',
 );
 
 router.post('/products/modify',
-    pass('merchant', 'admin'),
     upload_file.single('image'),
-    query('code')
-        .notEmpty().withMessage('Product code is missing.')
-        .custom(async product_code => {
-            const product = await database.get.product(product_code);
-            if (product) return true;
-            else throw new Error('Product doesn\'t exist.');
-        }),
-    handle_validation_result,
+    validations.products.modify_post,
     async (req, res, next) => {
         try {
             let product = {

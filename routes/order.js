@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const database = require('../services/database');
-const pass = require('../services/pass');
 const multer = require('multer');
 const multer_parser = multer();
+const validations = require('./validations/validations');
 
-router.get('/order', pass('customer', 'merchant', 'admin'), async (req, res, next) => {
+router.get('/order', validations.order.page, async (req, res, next) => {
     try {
         const user_data = await database.get.user(req.user.email);
         let shopping_cart = JSON.parse(user_data.shopping_cart);
@@ -32,7 +32,7 @@ router.get('/order', pass('customer', 'merchant', 'admin'), async (req, res, nex
     }
 });
 
-router.post('/order', pass('customer', 'merchant', 'admin'), multer_parser.none(), async (req, res, next) => {
+router.post('/order', validations.order.post, multer_parser.none(), async (req, res, next) => {
     const ordered_products = JSON.parse(req.body.products_as_json);
     try {
         await Promise.all(

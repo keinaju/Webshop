@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const database = require('../services/database');
-const pass = require('../services/pass');
+const validations = require('./validations/validations');
 const upload_file = require('../services/upload_file');
 
-router.get('/shop_configuration', pass('merchant', 'admin'), (req, res, next) => {
+router.get('/shop_configuration', validations.shop, (req, res, next) => {
     res.render('shop_configuration', {
         user: req.user,
         form_destination: '/shop_configuration',
@@ -12,7 +12,7 @@ router.get('/shop_configuration', pass('merchant', 'admin'), (req, res, next) =>
     });
 });
 
-router.post('/shop_configuration', pass('merchant', 'admin'), upload_file.single('logo'), async (req, res, next) => {
+router.post('/shop_configuration', validations.shop, upload_file.single('logo'), async (req, res, next) => {
     try {
         let filename = null;
         if (req.file)

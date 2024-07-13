@@ -1,20 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const database = require('../services/database');
-const { body } = require('express-validator');
-const handle_validation_result = require('../services/handle_validation_result');
+const validations = require('./validations/validations');
 const body_parser = require('body-parser');
 const ShoppingCart = require('../types/shopping_cart');
 
-const validation_chain = [
-    body('product_id').notEmpty().withMessage('Product id missing.'),
-    body('quantity').isInt().withMessage('Invalid quantity.'),
-];
-
 router.post('/shoppingcart/add',
     body_parser.json(),
-    validation_chain,
-    handle_validation_result,
+    validations.shopping_cart,
     async (req, res, next) => {
         if (!req.user)
             return res.json({ message: 'Please sign in before shopping.' });
