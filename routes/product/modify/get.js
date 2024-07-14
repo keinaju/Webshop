@@ -23,7 +23,7 @@ async function request_handler(request, response, next) {
         response.render('product_form', {
             form_method: 'post',
             headline: 'Modify product data:',
-            form_destination: '/products/modify?code=' + request.query.code,
+            form_destination: '/product/modify?code=' + request.query.code,
             product: product,
             categories_list: categories_list,
             chosen_categories: chosen_categories,
@@ -32,7 +32,7 @@ async function request_handler(request, response, next) {
         });
     }
     catch (error) {
-        console.log('Error in GET /products/modify', error.message);
+        console.log('Error in GET /product/modify', error.message);
         next(error);
     }
 }

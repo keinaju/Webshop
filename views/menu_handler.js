@@ -6,7 +6,7 @@ async function menu_handler() {
             window.location.href = '/categories/add';
             break;
         case 'add_product':
-            window.location.href = '/products/add';
+            window.location.href = '/product/add';
             break;
         case 'add_user':
             window.location.href = '/register';

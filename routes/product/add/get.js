@@ -11,7 +11,7 @@ async function request_handler(request, response, next) {
         response.render('product_form', {
             form_method: 'post',
             headline: 'Fill form to add new product to database:',
-            form_destination: '/products/add',
+            form_destination: '/product/add',
             categories_list: await database.get.categories(),
             chosen_categories: [],
             product_code_locked: false,
@@ -20,7 +20,7 @@ async function request_handler(request, response, next) {
         });
     }
     catch (error) {
-        console.log('Error in GET /products/add', error.message);
+        console.log('Error in GET /product/add', error.message);
         next(error);
     }
 }
