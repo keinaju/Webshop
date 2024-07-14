@@ -14,7 +14,7 @@ router.post('/login', require('./login/post'));
 router.post('/logout', require('./logout/post'));
 router.get('/logo', require('./logo/get'));
 router.get('/orders', require('./orders/get'));
-router.put('/orders/update', require('./orders/put'));
+router.put('/orders', require('./orders/put'));
 router.get('/product/add', require('./product/add/get'));
 router.post('/product/add', require('./product/add/post'));
 router.get('/product/modify', require('./product/modify/get'));

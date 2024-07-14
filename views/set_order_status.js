@@ -9,7 +9,7 @@ async function set_order_status(order_id) {
             new_status: new_status,
         }),
     };
-    const response = await fetch('/orders/update', requestOptions);
+    const response = await fetch('/orders', requestOptions);
     const data = await response.json();
     alert(data.message);
     location.reload(true);
