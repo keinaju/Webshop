@@ -5,7 +5,7 @@ const validations = require('./validations/validations');
 const multer = require('multer');
 const multer_parser = multer();
 
-router.get('/order', validations.order.page, async (req, res, next) => {
+router.get('/order', validations.checkout.page, async (req, res, next) => {
     try {
         const user_data = await database.get.user(req.user.email);
         let shopping_cart = JSON.parse(user_data.shopping_cart);
@@ -32,7 +32,7 @@ router.get('/order', validations.order.page, async (req, res, next) => {
     }
 });
 
-router.post('/order', validations.order.post, multer_parser.none(), async (req, res, next) => {
+router.post('/order', validations.checkout.post, multer_parser.none(), async (req, res, next) => {
     const ordered_products = JSON.parse(req.body.products_as_json);
     try {
         await Promise.all(

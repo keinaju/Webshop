@@ -32,7 +32,7 @@ module.exports = {
         ]
     },
 
-    order: {
+    checkout: {
         page: pass_any_users,
         post: pass_any_users
     },
