@@ -26,7 +26,7 @@ module.exports = {
 
     product: {
         product_name: { isLength: length_of_hundred },
-        product_code: { isLength: length_of_hundred },
+        product_code: { isLength: { options: { max: 100 } } },
         price: {
             isNumeric: {
                 errorMessage: 'Price must be numeric.'

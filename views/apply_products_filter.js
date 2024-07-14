@@ -16,5 +16,5 @@ function get_query_string(search_string, category_ids, page) {
 }
 
 function apply_products_filter(page_number) {
-    location.href = '/products' + get_query_string(get_search_value(), get_chosen_categories(), page_number || 0);
+    location.href = '/catalog' + get_query_string(get_search_value(), get_chosen_categories(), page_number || 0);
 }

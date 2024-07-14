@@ -1,19 +1,15 @@
-const express = require('express');
-const router = express.Router();
-const database = require('../services/database');
+const bcrypt = require('bcrypt');
+const database = require('../../services/database');
 const multer = require('multer');
 const multer_parser = multer();
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
-const bcrypt = require('bcrypt');
 
 async function verify(email, password, cb) {
     try {
         const user = await database.get.user(email);
-
         if (!user)
             return cb(null, false, { message: 'User doesn\'t exist.' });
-
         bcrypt.compare(password, user.hashed_password, (error, result) => {
             if (error) return cb(error);
             if (result) return cb(null, user);
@@ -25,7 +21,10 @@ async function verify(email, password, cb) {
     }
 }
 
-passport.use(new LocalStrategy({ usernameField: 'email', passwordField: 'password' }, verify));
+passport.use(new LocalStrategy({
+    usernameField: 'email',
+    passwordField: 'password'
+}, verify));
 
 passport.serializeUser(function (user, cb) {
     process.nextTick(function () {
@@ -45,13 +44,10 @@ passport.deserializeUser(function (user, cb) {
     });
 });
 
-router.get('/login', (req, res) => {
-    res.render('login', { user: req.user });
-});
-
-router.post('/login', multer_parser.none(), passport.authenticate('local', {
-    successRedirect: '/products',
-    failureRedirect: '/login',
-}));
-
-module.exports = router;
+module.exports = [
+    multer_parser.none(),
+    passport.authenticate('local', {
+        successRedirect: '/',
+        failureRedirect: '/login',
+    })
+];
