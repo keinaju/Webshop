@@ -3,7 +3,7 @@ const router = express.Router();
 const database = require('../services/database');
 const validations = require('./validations/validations');
 const body_parser = require('body-parser');
-const ShoppingCart = require('../types/shopping_cart');
+const ShoppingCart = require('../utilities/shopping_cart');
 
 router.post('/shoppingcart/add',
     body_parser.json(),
