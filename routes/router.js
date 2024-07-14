@@ -18,10 +18,10 @@ router.get('/products/add', require('./product/add/get'));
 router.post('/products/add', require('./product/add/post'));
 router.get('/products/modify', require('./product/modify/get'));
 router.post('/products/modify', require('./product/modify/post'));
+router.get('/register', require('./register/get'));
+router.post('/register', require('./register/post'));
 router.get('/shop_configuration', require('./shop_configuration/get'));
 router.post('/shop_configuration', require('./shop_configuration/post'));
 router.post('/shoppingcart/add', require('./shopping_cart/post'));
-router.get('/users/add', require('./user/get'));
-router.post('/users/add', require('./user/post'));
 
 module.exports = router;
