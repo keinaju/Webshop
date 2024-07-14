@@ -28,7 +28,7 @@ async function request_handler(request, response, next) {
         });
     }
     catch (error) {
-        console.log('Error in GET /order process.', error.message);
+        console.log('Error in GET /checkout.', error.message);
         next(error);
     }
 }

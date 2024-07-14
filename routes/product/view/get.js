@@ -1,5 +1,5 @@
-const database = require('../../services/database');
-const validations = require('../validations/validations');
+const database = require('../../../services/database');
+const validations = require('../../validations/validations');
 
 module.exports = [
     validations.product_query,

@@ -12,7 +12,7 @@ async function menu_handler() {
             window.location.href = '/register';
             break;
         case 'checkout':
-            window.location.href = '/order';
+            window.location.href = '/checkout';
             break;
         case 'orders':
             window.location.href = '/orders';
