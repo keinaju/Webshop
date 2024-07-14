@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const database = require('../services/database');
+const validations = require('./validations/validations');
 
-router.get('/product', async (req, res, next) => {
+router.get('/product', validations.product_query, async (req, res, next) => {
     let modify;
     if (req.user) {
         switch (req.user.role) {

@@ -21,11 +21,15 @@ function check_results(request, response, next) {
     else return response.send({ errors: result.array() });
 }
 
-//Export express compatible validation chains by combining schemas and result handlers
+//Export express-validator compatible validation chains by combining schemas and result handlers
 module.exports = {
     category: {
         page: pass_merchants,
-        add: [pass_merchants, checkSchema(schemas.category_name), check_results]
+        add: [
+            pass_merchants,
+            checkSchema(schemas.category_name),
+            check_results
+        ]
     },
 
     order: {
@@ -35,13 +39,30 @@ module.exports = {
 
     orders: {
         page: pass_merchants,
-        update: [pass_merchants, checkSchema(schemas.order), check_results]
+        update: [
+            pass_merchants,
+            checkSchema(schemas.order),
+            check_results
+        ]
     },
+
+    product_query: [
+        checkSchema(schemas.product_query),
+        check_results
+    ],
 
     products: {
         add_page: pass_merchants,
-        add_post: [pass_merchants, checkSchema(schemas.product), check_results],
-        modify_page: [pass_merchants, checkSchema(schemas.product_query), check_results],
+        add_post: [
+            pass_merchants,
+            checkSchema(schemas.product),
+            check_results
+        ],
+        modify_page: [
+            pass_merchants,
+            checkSchema(schemas.product_query),
+            check_results
+        ],
         modify_post: [
             pass_merchants,
             checkSchema(schemas.product_query),
@@ -52,7 +73,13 @@ module.exports = {
 
     shop: pass_merchants,
 
-    shopping_cart: [checkSchema(schemas.shopping_cart), check_results],
+    shopping_cart: [
+        checkSchema(schemas.shopping_cart),
+        check_results
+    ],
 
-    user: [checkSchema(schemas.user), check_results]
+    user: [
+        checkSchema(schemas.user),
+        check_results
+    ]
 };
