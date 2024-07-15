@@ -1,3 +1,3 @@
-module.exports = function (request, response, next) {
+module.exports = function request_handler(request, response, next) {
     response.redirect('/catalog');
 };
