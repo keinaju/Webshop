@@ -18,7 +18,7 @@ function check_results(request, response, next) {
     //Validation has no errors:
     if (result.isEmpty()) return next();
     //Validation has errors:
-    else return response.send({ errors: result.array() });
+    else return response.status(400).send({ errors: result.array() });
 }
 
 //Export express-validator compatible validation chains by combining schemas and result handlers
