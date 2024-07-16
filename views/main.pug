@@ -2,11 +2,9 @@ doctype html
 html
   head
     include font_import.pug
-    style
-      include styles.css
+    link(rel='stylesheet' href='/assets/styles.css')
   body
-    script
-      include menu_handler.js
+    script(src='/assets/menu_handler.js')
 
     div.top-section
       div.logo

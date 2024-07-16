@@ -11,8 +11,7 @@ if(categories_list)
         label(for='category_' + item.id)
             |#{item.name}
     br
-    script
-        include set_all_categories.js
+    script(src='/assets/set_all_categories.js')
     a(onclick='set_all_categories(true); return false;') Select all categories
     br
     a(onclick='set_all_categories(false); return false;') Unselect all categories

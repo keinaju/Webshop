@@ -13,7 +13,8 @@ app.use(require('./session'));
 
 app.use(require('./routes/router'));
 
-//Serve static files from public folder
+//Serve static files from /assets and /public 
+app.use('/assets', express.static(process.cwd() + '/assets'));
 app.use('/public', express.static(process.env.PUBLIC_DIRECTORY_PATH));
 
 app.use(require('./error_handler'));
