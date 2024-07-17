@@ -8,7 +8,8 @@ const path = require('path');
 app.set('views', './views');
 app.set('view engine', 'pug');
 
-app.use(helmet({ contentSecurityPolicy: false }));
+// app.use(helmet({ contentSecurityPolicy: false }));
+app.use(helmet());
 
 app.use(require('./session'));
 
