@@ -1,7 +1,6 @@
 extends main.pug
 
 block child
-    script(src='/assets/post_json.js')
 
     div.product-page-grid
         div
@@ -45,3 +44,6 @@ block child
             if item.lead_time_workdays
                 |Can be delivered in #{item.lead_time_workdays} working days.
                 br
+
+    script(src='/assets/add_cart_events.js')
+    script(src='/assets/post_json.js')
