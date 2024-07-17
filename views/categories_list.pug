@@ -11,9 +11,9 @@ if(categories_list)
         label(for='category_' + item.id)
             |#{item.name}
     br
-    script(src='/assets/set_all_categories.js')
-    a(onclick='set_all_categories(true); return false;') Select all categories
+    a(id='all_categories_button') Select all categories
     br
-    a(onclick='set_all_categories(false); return false;') Unselect all categories
+    a(id='no_categories_button') Unselect all categories
+    script(src='/assets/set_all_categories.js')
 else
     |No categories provided.

@@ -1,7 +1,6 @@
 extends main.pug
 
 block child
-    script(src='/assets/post_json.js')
 
     div.product-section
 
@@ -13,8 +12,7 @@ block child
             |Categories:
             include categories_list.pug
             hr
-            script(src='/assets/apply_products_filter.js')
-            div.align-center: a.rounded-button(onclick='apply_products_filter(); return false;') Apply filters
+            div.align-center: a.rounded-button(id='apply_filter_button') Apply filters
 
         div.product-list
             include page_selector.pug
@@ -52,3 +50,6 @@ block child
                     br
             
             include page_selector.pug
+    
+    script(src='/assets/apply_products_filter.js')
+    script(src='/assets/post_json.js')
