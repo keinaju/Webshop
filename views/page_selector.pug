@@ -1,15 +1,9 @@
 div.page-selector
     div
-        if page_number > 0
-            a(onclick=`apply_products_filter(${Number(page_number) - 1}); return false;`) ← Previous page
-            br
-            a(onclick=`apply_products_filter(0); return false;`) Go to the first page
+        if prev_page_href
+            a.rounded-button(href=prev_page_href) 👈 Previous page
     div.align-center
-        |Current page is #{page_number + 1} of #{total_of_pages}.
-        br
-        |Showing products #{showing_first}-#{showing_last} of #{product_count}.
+        |#{head_text}
     div.align-right
-        if page_number + 1 < total_of_pages
-            a(onclick=`apply_products_filter(${Number(page_number) + 1}); return false;`) Next page →
-            br
-            a(onclick=`apply_products_filter(${total_of_pages - 1}); return false;`) Go to the last page
+        if next_page_href
+            a.rounded-button(href=next_page_href) 👉 Next page
