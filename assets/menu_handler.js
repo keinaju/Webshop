@@ -29,3 +29,6 @@ async function menu_handler() {
             break;
     }
 }
+
+const menu = document.getElementById('menu');
+if (menu) menu.addEventListener('change', menu_handler);

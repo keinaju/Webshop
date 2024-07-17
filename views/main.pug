@@ -5,7 +5,6 @@ html
     link(rel='stylesheet' href='/assets/styles.css')
     link(rel='icon' href='/assets/favicon.ico')
   body
-    script(src='/assets/menu_handler.js')
 
     div.top-section
       div.logo
@@ -15,10 +14,10 @@ html
           |👤 Signed in as #{user.first_name} 
           br
           label(for='menu') Go to: 
-          select(name='menu' id='menu' onchange='menu_handler();')
+          select(name='menu' id='menu')
             option(value='none') 
+            option(value='shop') 🛍️ Catalog
             option(value='checkout') 💳 Checkout
-            option(value='shop') 🛍️ Shop
             option(value='signout') 🔒 Sign out
             if(user.role == 'merchant' || user.role == 'admin')
               optgroup(label='Merchant\'s options:')
@@ -30,4 +29,5 @@ html
         else
           a.rounded-button(href='/login') 🔑 Sign in!
     
+    script(src='/assets/menu_handler.js')
     block child
