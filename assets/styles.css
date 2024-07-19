@@ -68,6 +68,12 @@
     background-color: #f9f9f9;
 }
 
+.product-container {
+    transition:
+        opacity 1.5s ease,
+        transform 0.35s ease;
+}
+
 .page-selector {
     display: grid;
     grid-template-columns: 30% 40% 30%;
