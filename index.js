@@ -4,6 +4,8 @@ const app = express();
 const helmet = require('helmet');
 const path = require('path');
 
+console.log(`NODE_ENV=${process.env.NODE_ENV}.`);
+
 //View engine settings
 app.set('views', './views');
 app.set('view engine', 'pug');
