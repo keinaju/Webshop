@@ -15,7 +15,7 @@ async function request_handler(request, response, next) {
         database.get.products_count(chosen_categories, regex),
         database.get.categories(),
     ]);
-    response.render('products_list', {
+    response.render('catalog', {
         product_list: product_list,
         categories_list: categories_list,
         chosen_categories: chosen_categories ? chosen_categories.split(',') : [],

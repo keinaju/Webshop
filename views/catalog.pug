@@ -1,9 +1,6 @@
 extends main.pug
-
 block child
-
     div.product-section
-
         div.sidebar
             |Search:
             br
@@ -13,10 +10,8 @@ block child
             include categories_list.pug
             hr
             div.align-center: a.rounded-button(id='apply_filter_button') Apply filters
-
         div.product-list
-            include page_selector.pug
-            
+            include page_selector.pug            
             if(Object.keys(product_list).length)
                 table
                     tr
@@ -25,7 +20,7 @@ block child
                         th.align-center(style='width:10%') Categories
                         th.align-center(style='width:20%') Price
                     each item in product_list
-                        tr
+                        tr.product-container(style='opacity: 0; transform: translateX(500px);')
                             td(style='padding-right: 15px; padding-top: 5px; padding-bottom: 5px;')
                                 if item.image_file
                                     a(href=`/product/view?code=${item.code}`)
@@ -47,10 +42,9 @@ block child
                 div.align-center 
                     |No results.
                     br
-                    br
-            
+                    br            
             include page_selector.pug
-    
     script(src='/assets/add_cart_events.js')
     script(src='/assets/apply_products_filter.js')
+    script(src='/assets/fade_in_product_containers.js')
     script(src='/assets/post_json.js')
