@@ -7,12 +7,13 @@ To see the live application, check out: [https://warmsound.up.railway.app](https
 To run the application yourself, download repository and run with npm start.
 
 Main technologies used:
--Node.js runtime
--MySQL
+- Node.js runtime
+- MySQL
+
 Main npm packages used:
--Express.js web application framework
--Pug view engine
--bcrypt for password hashing
--helmet for improving security in HTTP headers 
--mysql2 for MySQL interface
--passport and local strategy for authentication
+- Express.js web application framework
+- Pug view engine
+- bcrypt for password hashing
+- helmet for improving security in HTTP headers 
+- mysql2 for MySQL interface
+- passport and local strategy for authentication
