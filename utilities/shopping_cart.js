@@ -56,7 +56,7 @@ module.exports = class ShoppingCart {
         for (const product_in_cart of this.#contents) {
             total += product_in_cart.price_per_pc * product_in_cart.quantity;
         }
-        return total;
+        return total.toFixed(2);
     }
 
     get_total_quantity() {

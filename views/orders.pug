@@ -30,7 +30,7 @@ block child
                 td #{order.order_id}
                 td #{order.order_date.toISOString()}
                 td #{order.product_code} / #{order.product_name}
-                td #{order.order_quantity} * #{order.unit_price} € = #{order.order_quantity * order.unit_price} €
+                td #{order.order_quantity} * #{order.unit_price} € = #{(order.order_quantity * order.unit_price).toFixed(2)} €
                 td #{order.customer_id} / #{order.customer_first_name} #{order.customer_last_name}
                 td #{order.order_instructions}
                 td #{order.order_status}

@@ -14,10 +14,10 @@ block child
                         i #{product.description}
                         br
                         div.align-right
-                            | #{product.price_per_pc} € * #{product.quantity} = #{product.price_per_pc * product.quantity} €
+                            | #{product.price_per_pc} € * #{product.quantity} = #{(product.price_per_pc * product.quantity).toFixed(2)} €
                         hr
             b Summary:
-            |Total of #{total_price} €
+            |Total of #{total_price.toFixed(2)} €
             form(action='/checkout' method='post' enctype='multipart/form-data')
                 b: label(for='instructions') Instructions:
                 br
